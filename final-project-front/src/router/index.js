@@ -19,7 +19,6 @@ import FollowingView from '../views/FollowingView.vue'
 import LikeArticleView from '../views/LikeArticleView.vue'
 import LikeMovieView from '../views/LikeMovieView.vue'
 
-import CommunityListView from '../views/CommunityListView.vue'
 
 Vue.use(VueRouter)
 
@@ -88,11 +87,6 @@ const routes = [
     path: '/profile/:username/likemovies',
     name: 'likemovies',
     component: LikeMovieView,
-  },
-  {
-    path: '/community',
-    name: 'community',
-    component: CommunityListView,
   },
   {
     path: '/404',

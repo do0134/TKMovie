@@ -8,7 +8,7 @@
               <router-link to="/" class="text-white">Home</router-link>
             </li>
             <li class="nav-item mx-3">
-              <router-link to="/community" class="text-white">Community</router-link>
+              <router-link to="/articles" class="text-white">Community</router-link>
             </li>
             <li class="nav-item mx-3">
               <router-link to="#" class="text-white">Recommendation</router-link>
