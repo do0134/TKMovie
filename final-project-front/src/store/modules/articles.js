@@ -62,7 +62,7 @@ export default {
         .then(res => {
           commit('SET_ARTICLE', res.data)
           router.push({
-            name: 'article',
+            name: 'articles',
             params: { articlePk: getters.article.pk }
           })
         })

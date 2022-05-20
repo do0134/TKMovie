@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Home</h1>
+    <h1>Community</h1>
     <ul>
       <li v-for="article in articles" :key="article.pk">
         <!-- 작성자 -->
@@ -18,7 +18,7 @@
 
       </li>
     </ul>
-   
+    <button @click="moveToNewArticle">New</button>
   </div>
 </template>
 
@@ -31,7 +31,11 @@
       ...mapGetters(['articles'])
     },
     methods: {
-      ...mapActions(['fetchArticles'])
+      ...mapActions(['fetchArticles']),
+
+      moveToNewArticle() {
+        this.$router.push('/articles/new')
+      }
     },
     created() {
       this.fetchArticles()
