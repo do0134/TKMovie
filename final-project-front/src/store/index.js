@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import createPersistedState from 'vuex-persistedstate'
+import articles from './modules/articles'
+import accounts from './modules/accounts'
 
 Vue.use(Vuex)
 
@@ -11,6 +13,7 @@ const popMovie = "/movie/popular/"
 const nowPlaying = "/movie/now_playing/"
 
 export default new Vuex.Store({
+  modules: { articles,accounts },
   plugins: [
     createPersistedState(),
   ],
@@ -67,6 +70,4 @@ export default new Vuex.Store({
         console.log(err))
     }
   },
-  modules: {
-  }
 })
