@@ -13,7 +13,6 @@ from .serializers.comment import CommentSerializer
 
 @api_view(['GET', 'POST'])
 def article_list_or_create(request):
-
     def article_list():
         # comment 개수 추가
         articles = Article.objects.annotate(
