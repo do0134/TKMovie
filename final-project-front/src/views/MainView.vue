@@ -1,6 +1,7 @@
 <template>
   <div>
     <nav-bar/>
+    <br>
     <popular-movie-card />
   </div>  
 </template>

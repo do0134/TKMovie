@@ -1,6 +1,35 @@
 <template>
   <div>
-    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+      <div class="container-fluid d-flex justify-content-between my-2">
+        <div>
+          <ul class="navbar-nav">
+            <li class="nav-item mx-3">
+              <router-link to="/" class="text-white">Home</router-link>
+            </li>
+            <li class="nav-item mx-3">
+              <router-link to="/community" class="text-white">Community</router-link>
+            </li>
+            <li class="nav-item mx-3">
+              <router-link to="#" class="text-white">Recommendation</router-link>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <ul class="navbar-nav">
+            <li class="nav-item mx-3">
+              <router-link to="#" class="text-white">Search</router-link>
+            </li>
+            <li class="nav-item mx-3">
+              <router-link to="/login" class="text-white">Login</router-link>
+            </li>
+            <li class="nav-item mx-3">
+              <router-link to="/signup" class="text-white">SignUp</router-link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
   </div>
 </template>
 
