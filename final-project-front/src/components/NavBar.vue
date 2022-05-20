@@ -30,6 +30,9 @@
         </div>
       </div>
     </nav>
+    <!-- <nav class="d-flex justify-content-center align-content-end">
+      <p>바닥</p>
+    </nav> -->
   </div>
 </template>
 
