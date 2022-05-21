@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from django.conf import settings
+from accounts.models import User
 from ..models import Article
 from .comment import CommentSerializer
 
@@ -10,7 +10,7 @@ class ArticleSerializer(serializers.ModelSerializer):
     
     class UserSerializer(serializers.ModelSerializer):
         class Meta:
-            model = settings.AUTH_USER_MODEL
+            model = User
             fields = ('pk', 'username')
 
     comments = CommentSerializer(many=True, read_only=True)
@@ -26,7 +26,7 @@ class ArticleSerializer(serializers.ModelSerializer):
 class ArticleListSerializer(serializers.ModelSerializer):
     class UserSerializer(serializers.ModelSerializer):
         class Meta:
-            model = settings.AUTH_USER_MODEL
+            model = User
             fields = ('pk', 'username')
 
     user = UserSerializer(read_only=True)
