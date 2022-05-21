@@ -1,10 +1,11 @@
 from .models import User
 from rest_framework import serializers
+from articles.models import Article
 
 class ProfileSerializer(serializers.ModelSerializer):
     class ArticleSerializer(serializers.ModelSerializer):
         class Meta:
-            model = User
+            model = Article
             fields = ('pk', 'title', 'content')
 
     like_articles = ArticleSerializer(many=True)
