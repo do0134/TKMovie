@@ -1,25 +1,72 @@
 <template>
   <div>
     <h1>Community</h1>
-    <ul>
-      <li v-for="article in articles" :key="article.pk">
-        <!-- 작성자 -->
-        {{ article.user.username }} : 
-
-        <!-- 글 이동 링크 (제목) -->
-        <router-link 
-          :to="{ name: 'article', params: {articlePk: article.pk} }">
-          {{ article.title }}
-        </router-link>
-
-        <!-- 댓글 개수/좋아요 개수 -->
-        =>
-        ({{ article.comment_count }}) | +{{ article.like_count }}
-
-      </li>
-    </ul>
+    <p>번호랑 시간 왜 안 나오죠?</p>
+    <div class="d-flex justify-content-between">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">번호</th>
+            <th scope="col">제목</th>
+            <th scope="col">작성자</th>
+            <th scope="col">날짜</th>
+            <th scope="col">좋아요 수</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="article in articles" :key="article.pk">
+            <td>
+              <span>{{ article.id }}</span>
+            </td>
+            <td>
+              <span>
+                <router-link 
+                  :to="{ name: 'article', params: {articlePk: article.pk} }">
+                  {{ article.title }}
+                </router-link>
+              </span>
+            </td>
+            <td>
+              <span>{{ article.user.username }}</span>
+            </td>
+            <td>
+              <span>{{ article.created_at }}</span>
+            </td>
+            <td>
+              <span>{{ article.like_count }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <div>
+          <h4>인기 게시글(현재는 기본 게시글)</h4>
+          <ul>
+            <li v-for="article in articles" :key="article.pk">
+              <router-link 
+                :to="{ name: 'article', params: {articlePk: article.pk} }">
+                {{ article.title }}
+              </router-link>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4>댓글 많은 게시글(현재는 기본 게시글)</h4>
+          <ul>
+            <li v-for="article in articles" :key="article.pk">
+              <router-link 
+                :to="{ name: 'article', params: {articlePk: article.pk} }">
+                {{ article.title }}
+              </router-link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
     <button @click="moveToNewArticle">New</button>
   </div>
+  
 </template>
 
 <script>
