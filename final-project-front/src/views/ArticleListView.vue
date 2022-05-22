@@ -16,7 +16,7 @@
         <tbody>
           <tr v-for="article in articles" :key="article.pk">
             <td>
-              <span>{{ article.id }}</span>
+              <span>{{ article.pk }}</span>
             </td>
             <td>
               <span>
@@ -82,10 +82,16 @@
 
       moveToNewArticle() {
         this.$router.push('/articles/new')
-      }
+        
+      },
+      detailArticle() {
+          console.log(this.articles)
+        }
+
     },
     created() {
-      this.fetchArticles()
+      this.fetchArticles(),
+      this.detailArticle()
     },
   }
 </script>

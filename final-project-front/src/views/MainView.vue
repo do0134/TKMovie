@@ -10,7 +10,9 @@
     <br>
 
     <h2>Now Playing Movie</h2>
-    <now-playing-movie-card/>
+    <div class="wrapper">        
+      <now-playing-movie-card v-for="movie in nowPlaying" :key="movie.id" :movie="movie"/>    
+    </div>
   </div>
 </template>
 

@@ -64,7 +64,7 @@ export default new Vuex.Store({
       .then(res =>{
         const moviesData = res.data.results
         console.log(moviesData)
-        commit('GET_NOWPLAING_MOVIE',moviesData)
+        commit('GET_NOWPLAYING_MOVIE',moviesData)
       })
       .catch(err=>
         console.log(err))
