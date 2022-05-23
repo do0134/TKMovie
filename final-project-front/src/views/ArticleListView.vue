@@ -30,7 +30,7 @@
               <span>{{ article.user.username }}</span>
             </td>
             <td>
-              <span>{{ article.created_at }}</span>
+              <article-list-created :article="article"></article-list-created>
             </td>
             <td>
               <span>{{ article.like_count }}</span>
@@ -71,9 +71,13 @@
 
 <script>
   import { mapActions, mapGetters } from 'vuex'
+  import ArticleListCreated from '@/components/ArticleListCreated.vue'
 
   export default {
     name: 'ArticleList',
+    components : {
+      ArticleListCreated
+    },
     computed: {
       ...mapGetters(['articles', 'isLoggedIn'])
     },
