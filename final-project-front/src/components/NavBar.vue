@@ -11,7 +11,19 @@
           <b-nav-item to="#">Recommendation</b-nav-item>
         </b-navbar-nav>
 
-        <b-navbar-nav class="ml-auto">
+        <b-navbar-nav v-if="isLoggedIn" class="ml-auto">
+          <!-- 검색 버튼 추가하기 -->
+          <!-- <b-nav-form>
+            <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
+            <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+          </b-nav-form> -->
+
+          <b-nav-item 
+          :to="{ name: 'profile', params: { username } }">          
+          {{ currentUser.username }}</b-nav-item>
+        </b-navbar-nav>
+
+        <b-navbar-nav v-else class="ml-auto">
           <!-- 검색 버튼 추가하기 -->
           <!-- <b-nav-form>
             <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
@@ -53,8 +65,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
   export default {
-
+    name: 'NavBar',
+    computed: {
+      ...mapGetters(['isLoggedIn', 'currentUser']),
+      username() {
+        return this.currentUser.username ? this.currentUser.username : 'guest'
+      },
+    }
   }
 </script>
 

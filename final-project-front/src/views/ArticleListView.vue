@@ -64,7 +64,7 @@
       </div>
     </div>
     
-    <button @click="moveToNewArticle">New</button>
+    <button v-if="isLoggedIn" @click="moveToNewArticle">New</button>
   </div>
   
 </template>
@@ -75,7 +75,7 @@
   export default {
     name: 'ArticleList',
     computed: {
-      ...mapGetters(['articles'])
+      ...mapGetters(['articles', 'isLoggedIn'])
     },
     methods: {
       ...mapActions(['fetchArticles']),
