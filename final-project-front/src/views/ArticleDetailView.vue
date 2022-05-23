@@ -1,23 +1,24 @@
 <template>
   <div class="container">
     <h1>Community</h1>
-    <b-button variant="link" :to="{ name: 'article', params: {articlePk: article.pk -1} }" id="link">
-      <b-icon icon="chevron-up" aria-hidden="true" variant="dark"></b-icon>((((얘는 넣을까 말까..))))
+    <b-button class="d-flex" variant="link" :to="{ name: 'articles' }" id="link">
+      <b-icon icon="list" aria-hidden="true" variant="dark" class="me-1"></b-icon>목록으로
     </b-button>
-    <b-button variant="link" :to="{ name: 'article', params: {articlePk: article.pk +1} }" id="link">
-      <b-icon icon="chevron-down" aria-hidden="true" variant="dark"></b-icon>((((얘는 넣을까 말까..))))
-    </b-button>
-    <b-button variant="link" :to="{ name: 'articles' }" id="link">
-      <b-icon icon="list" aria-hidden="true" variant="dark"></b-icon> 목록으로
-    </b-button>
-    <hr style="border: solid 2px red;">
-    <h2 class="d-flex">{{ article.title }}</h2>
-    <div class="d-flex">
+    <hr style="border: solid 2px black;">
+    <div class="d-flex justify-content-between">
+      <h2>{{ article.title }}</h2>
+      <p class="mt-2">
+        <b-icon icon="suit-heart" aria-hidden="true" variant="dark" class="me-1"></b-icon>{{ likeCount }}
+        <b-icon icon="chat-dots" aria-hidden="true" variant="dark" class="ms-2 me-1"></b-icon> 댓글 개수 넣기~
+      </p>
+    </div>
+    
+    <div class="d-flex justify-content-between">
       <div>
         {{ article.user.username }}
       </div>
       <div>
-
+        <p>시간 넣기~</p>
       </div>
     </div>
     <hr>
@@ -26,22 +27,30 @@
     </p>
     <hr>
     <!-- Article Edit/Delete UI -->
-    <div v-if="isAuthor && isLoggedIn">
-      <router-link :to="{ name: 'articleEdit', params: { articlePk } }">
-        <button>Edit</button>
-      </router-link>
-      |
-      <button @click="deleteArticle(articlePk)">Delete</button>
+    <div class="d-flex justify-content-between">
+      <div v-if="isAuthor && isLoggedIn">
+        <router-link :to="{ name: 'articleEdit', params: { articlePk } }">
+          <button><b-icon icon="pencil-square" aria-hidden="true" variant="dark"></b-icon> Edit</button>
+        </router-link>
+        |
+        <button @click="deleteArticle(articlePk)">
+          <b-icon icon="trash" aria-hidden="true" variant="dark"></b-icon> Delete</button>
+      </div>
+      
+
+      <!-- Article Like UI -->
+      <div>
+        Likeit:
+        <button
+          @click="likeArticle(articlePk)"
+        >{{ likeCount }}</button>
+        <!-- <b-button variant="link" @click="[likeArticle(articlePk), liking()]">
+          <b-icon  v-if="isLiking" icon="suit-heart-fill" aria-hidden="true" variant="dark"></b-icon>
+          <b-icon v-else icon="suit-heart" aria-hidden="true" variant="dark"></b-icon>
+        </b-button> -->
+      </div>
     </div>
     
-
-    <!-- Article Like UI -->
-    <div>
-      Likeit:
-      <button
-        @click="likeArticle(articlePk)"
-      >{{ likeCount }}</button>
-    </div>
 
     <hr />
     <!-- Comment UI -->
@@ -52,7 +61,7 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
-  // import CommentList from '@/components/CommentList.vue'
+  import CommentList from '@/components/CommentList.vue'
 
 
 
@@ -61,14 +70,17 @@
     components: { CommentList },
     data() {
       return {
-        articlePk: this.$route.params.articlePk,
+        articlePk: this.$route.params.articlePk
       }
     },
     computed: {
       ...mapGetters(['isAuthor', 'article', 'isLoggedIn']),
       likeCount() {
         return this.article.like_users?.length
-      }
+      },
+      // commentCount() {
+      //   return this.comment.length
+      // },
     },
     methods: {
       ...mapActions([
@@ -80,7 +92,6 @@
     created() {
       this.fetchArticle(this.articlePk)
     },
-    
   }
 </script>
 

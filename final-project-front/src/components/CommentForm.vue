@@ -10,7 +10,7 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  name: 'CommentListForm',
+  name: 'CommentForm',
   data() {
     return {
       content: ''

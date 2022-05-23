@@ -9,17 +9,17 @@
       </comment-list-item>        
     </ul>
 
-    <comment-list-form></comment-list-form>
+    <comment-form></comment-form>
   </div>
 </template>
 
 <script>
 import CommentListItem from '@/components/CommentListItem.vue'
-import CommentListForm from '@/components/CommentListForm.vue'
+import CommentForm from '@/components/CommentForm.vue'
 
 export default {
   name: 'CommentList',
-  components: { CommentListForm, CommentListItem },
+  components: { CommentForm, CommentListItem },
   props: { comments: Array },
 }
 </script>
