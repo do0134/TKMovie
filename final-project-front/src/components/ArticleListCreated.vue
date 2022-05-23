@@ -11,16 +11,27 @@ export default {
   },
   data() {
     return{
-      newCreatedAt: ''
+      newCreatedAt: '',
+      nowDate : '',
+      nowMonth : ''
       }
   },
   methods : {
     newCreated: function(){
       const now = new Date()
       const nowYear = String(now.getFullYear())
-      const nowMonth = String(now.getMonth()+1)
-      const nowDate = String(now.getDate())
-      if (nowYear === this.article.created_at.slice(0,4) && nowMonth === this.article.created_at.slice(6,7) && nowDate === this.article.created_at.slice(8,10)){
+      if (now.getMonth()< 9){
+        this.nowMonth = '0'+String(now.getMonth()+1)
+      } else{
+        this.nowMonth = String(now.getMonth()+1)
+      }
+      console.log(this.nowMonth)
+      if (now.getDate()<10){
+        this.nowDate = '0'+String(now.getDate())
+      } else {
+        this.nowDate = String(now.getDate())
+      }
+      if (nowYear === this.article.created_at.slice(0,4) && this.nowMonth === this.article.created_at.slice(5,7) && this.nowDate === this.article.created_at.slice(8,10)){
         this.newCreatedAt = this.article.created_at.slice(11,16)
         console.log('here')
         return this.newCreatedAt

@@ -5,4 +5,5 @@ app_name = 'accounts'
 
 urlpatterns = [
     path('profile/<username>/', views.profile),
+    path('<int:user_pk>/follow/', views.follow),
 ]
