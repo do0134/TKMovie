@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>{{ profile }}</h1>
-
+    <h1>{{ profile.username }}</h1>
+    <my-profile/>
     <h2>작성한 글</h2>
     <ul>
       <li v-for="article in profile.articles" :key="article.pk">
@@ -24,10 +24,14 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import MyProfile from '@/components/MyProfile.vue'
 
 
 export default {
   name: 'ProfileView',
+  components : {
+    MyProfile
+  },
   computed: {
     ...mapGetters(['profile'])
   },
