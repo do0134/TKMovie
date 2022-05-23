@@ -3,7 +3,7 @@
     <div class="card m-3 " id="cardimg">    
       <img :src="imgUrl" class="card-img-top" style="height: 400px; width: 295px;" alt="img">
         <div class="card-body">
-          <h5 class="card-title fw-bold">{{movie.title}}</h5>
+          <h5 class="card-title fw-bold text-dark">{{movie.title}}</h5>
         </div>
     </div>
   </div>

@@ -1,9 +1,8 @@
 <template>
-  <div>
+  <div class="container">
     <h1>Community</h1>
-    <p>번호랑 시간 왜 안 나오죠?</p>
     <div class="d-flex justify-content-between">
-      <table class="table">
+      <table class="table me-5">
         <thead>
           <tr>
             <th scope="col">번호</th>
@@ -37,34 +36,36 @@
             </td>
           </tr>
         </tbody>
+        <button v-if="isLoggedIn" @click="moveToNewArticle" class="my-2">New</button>
       </table>
-      <div>
+      <div class="sub">
         <div>
-          <h4>인기 게시글(현재는 기본 게시글)</h4>
-          <ul>
-            <li v-for="article in articles" :key="article.pk">
-              <router-link 
-                :to="{ name: 'article', params: {articlePk: article.pk} }">
-                {{ article.title }}
-              </router-link>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h4>댓글 많은 게시글(현재는 기본 게시글)</h4>
-          <ul>
-            <li v-for="article in articles" :key="article.pk">
-              <router-link 
-                :to="{ name: 'article', params: {articlePk: article.pk} }">
-                {{ article.title }}
-              </router-link>
-            </li>
-          </ul>
+          <b-card border-variant="dark" header="인기 게시글" align="center" id="card">
+            <ul class="ps-0">
+              <li v-for="article in articles" :key="article.pk" class="mb-2 d-flex ms-5 ps-4">
+                <router-link 
+                  :to="{ name: 'article', params: {articlePk: article.pk} }">
+                  {{ article.title }} 
+                </router-link>
+                <b-icon icon="suit-heart" aria-hidden="true" color="red" class="me-1 ms-3 mt-1"></b-icon>{{ article.like_count }}
+              </li>
+            </ul>
+          </b-card>     
+          <b-card border-variant="dark" header="댓글 많은 게시글" align="center" id="card">
+            <ul class="ps-0">
+              <li v-for="article in articles" :key="article.pk" class="mb-2 d-flex ms-5 ps-4">
+                <router-link 
+                  :to="{ name: 'article', params: {articlePk: article.pk} }">
+                  {{ article.title }} 
+                </router-link>
+                <b-icon icon="suit-heart" aria-hidden="true" color="red" class="me-1 ms-3 mt-1"></b-icon>{{ article.like_count }}
+              </li>
+            </ul>
+          </b-card>          
         </div>
       </div>
     </div>
-    
-    <button v-if="isLoggedIn" @click="moveToNewArticle">New</button>
+
   </div>
   
 </template>
@@ -100,4 +101,21 @@
   }
 </script>
 
-<style></style>
+<style>
+.sub {
+  width: 30%;
+}
+ul{
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+}
+.table {
+  height: 80px;
+}
+#card {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+</style>
