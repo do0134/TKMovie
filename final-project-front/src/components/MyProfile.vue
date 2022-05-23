@@ -35,6 +35,9 @@ export default {
 
 
 <style>
-
+.my-list{
+  list-style-type: none;
+  margin : 20px;
+}
 </style>
 
