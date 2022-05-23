@@ -17,10 +17,19 @@
             <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
             <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
           </b-nav-form> -->
-
-          <b-nav-item 
-          :to="{ name: 'profile', params: { username } }">          
-          {{ currentUser.username }}</b-nav-item>
+          <b-nav-item-dropdown right>
+            <!-- Using 'button-content' slot -->
+            <template #button-content>
+              <b-avatar variant="dark"></b-avatar>
+              <em>{{ currentUser.username }}</em>
+            </template>
+            <b-dropdown-item :to="{ name: 'profile', params: { username } }" variant="outline-warning " class="mb-2">
+              <b-icon icon="person-circle" aria-hidden="true"></b-icon> My Page
+            </b-dropdown-item>
+            <b-dropdown-item :to="{ name: 'logout' }" variant="outline-warning " class="mb-2">
+              <b-icon icon="power" aria-hidden="true"></b-icon> Logout
+            </b-dropdown-item>
+          </b-nav-item-dropdown>
         </b-navbar-nav>
 
         <b-navbar-nav v-else class="ml-auto">
@@ -64,6 +73,7 @@
 
 </template>
 
+
 <script>
 import { mapGetters } from 'vuex'
   export default {
@@ -76,6 +86,7 @@ import { mapGetters } from 'vuex'
     }
   }
 </script>
+
 
 <style>
 
