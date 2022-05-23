@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ profile.username }}</h1>
+    <h1>{{ profile }}</h1>
 
     <h2>작성한 글</h2>
     <ul>
@@ -37,6 +37,7 @@ export default {
   created() {
     const payload = { username: this.$route.params.username }
     this.fetchProfile(payload)
+
   },
 }
 </script>

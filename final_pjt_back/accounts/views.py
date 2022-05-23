@@ -16,20 +16,17 @@ def profile(request, username):
 @api_view(['POST'])
 def follow(request, user_pk):
     if request.user.is_authenticated:
-        #좋아요 상태라면 > 좋아요 취소
-        #아무것도 안했으면 > 좋아요
         person = get_object_or_404(User, pk=user_pk)
-        if person.followers.filter(pk=request.user.pk).exists():
+        if person.following.filter(pk=request.user.pk).exists():
             followed = False
-            person.followers.remove(request.user.pk)
+            person.following.remove(request.user.pk)
         else:
             followed = True
-            person.followers.add(request.user.pk)
-            
+            person.following.add(request.user.pk)       
         context = {
             'followed': followed,
-            'count' : person.followers.count(),
+            'count' : person.following.count(),
         }
         return JsonResponse(context)
-    return JsonResponse({'logined': False})
+    return 
 
