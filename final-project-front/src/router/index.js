@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import MainView from '../views/MainView.vue'
 
-
 import ArticleListView from '@/views/ArticleListView.vue'
 import ArticleDetailView from '@/views/ArticleDetailView.vue'
 import ArticleNewView from '@/views/ArticleNewView'
@@ -12,13 +11,13 @@ import LoginView from '@/views/LoginView.vue'
 import LogoutView from '@/views/LogoutView.vue'
 import SignupView from '@/views/SignupView.vue'
 import ProfileView from '@/views/ProfileView.vue'
+import ProfileEditView from '@/views/ProfileEditView.vue'
 import NotFound404 from '../views/NotFound404.vue'
 
 import FollowerView from '../views/FollowerView.vue'
 import FollowingView from '../views/FollowingView.vue'
 import LikeArticleView from '../views/LikeArticleView.vue'
 import LikeMovieView from '../views/LikeMovieView.vue'
-
 
 Vue.use(VueRouter)
 
@@ -69,6 +68,11 @@ const routes = [
     component: ProfileView,
   },
   {
+    path: '/profile/:username/edit',
+    name: 'profileEdit',
+    component: ProfileEditView
+  },
+  {
     path: '/profile/:username/followers',
     name: 'followers',
     component: FollowerView,
@@ -104,6 +108,5 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-
 
 export default router
