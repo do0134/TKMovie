@@ -1,6 +1,10 @@
 from rest_framework import serializers
-from accounts.models import User
+
 from ..models import Comment
+from django.contrib.auth import get_user_model
+
+
+User = get_user_model()
 
 
 
