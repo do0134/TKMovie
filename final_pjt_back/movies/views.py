@@ -3,9 +3,11 @@ import json
 import requests
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Movie
-from .serializers.movie import MovieSerializer
+from .models import Movie, Review
+from .serializers.movie import MovieSerializer, ReviewSerializer
 from django.shortcuts import get_object_or_404
+from django.db.models import Count,Avg
+from rest_framework import status
 # Create your views here.
 
 TMDB_API_KEY = '38fb6be42c82ed986f17fb3d9195b8bc'
@@ -46,9 +48,65 @@ def get_movie_datas():
 
 @api_view(['GET'])
 def movie_detail(request, movie_pk):
-    movie = get_object_or_404(Movie, pk=movie_pk)
+    movie = Movie.objects.annotate(
+        review_count = Count('review'),
+        movie_rating = Avg('review__rating')
+    ).get(pk=movie_pk)
     def movie_detail():
         serializer = MovieSerializer(movie)
         return Response(serializer.data)
     if request.method == 'GET':
         return movie_detail()
+
+@api_view(['POST'])
+def like_movie(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    user = request.user
+    if movie.movie_like.filter(pk=user.pk).exists():
+        movie.movie_like.remove(user)
+        serializer = MovieSerializer(movie)
+        return Response(serializer.data)
+    else:
+        movie.movie_like.add(user)
+        serializer = MovieSerializer(movie)
+        return Response(serializer.data)
+
+
+@api_view(['POST'])
+def create_review(request, movie_pk):
+    user = request.user
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    serializer = ReviewSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(movie = movie, user=user)
+        reviews = movie.reviews.all()
+        serializer = ReviewSerializer(reviews, many=True)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+@api_view(['PUT', 'DELETE'])
+def review_update_or_delete(request, movie_pk, review_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    review = get_object_or_404(Review, pk=review_pk)
+    
+    def update_review():
+        if request.user == review.user:
+            serializer = ReviewSerializer(instance=review, data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                reviews = movie.reviews.all()
+                serializer = ReviewSerializer(reviews, many=True)
+                return Response(serializer.data)
+
+    def delete_review():
+        if request.user == review.user:
+            review.delete()
+            reviews = movie.reviews.all()
+            serializer = ReviewSerializer(reviews, many=True)
+            return Response(serializer.data)
+    
+    if request.method == 'PUT':
+        return update_review()
+    elif request.method == 'DELETE':
+        return delete_review()
+

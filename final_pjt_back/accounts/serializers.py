@@ -1,6 +1,10 @@
-from .models import User
+
 from rest_framework import serializers
 from articles.models import Article
+from django.contrib.auth import get_user_model
+
+
+User = get_user_model()
 
 class EachUserSerializer(serializers.ModelSerializer):
     class Meta:

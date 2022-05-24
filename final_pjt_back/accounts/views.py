@@ -1,11 +1,11 @@
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
-from .models import User
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.http import JsonResponse
 from .serializers import ProfileSerializer
-
+User = get_user_model()
 
 @api_view(['GET'])
 def profile(request, username):
