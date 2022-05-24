@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from django.conf import settings
+from accounts.models import User
 from ..models import Comment
 
 
@@ -9,7 +9,7 @@ from ..models import Comment
 class CommentSerializer(serializers.ModelSerializer):
     class UserSerializer(serializers.ModelSerializer):
         class Meta:
-            model = settings.AUTH_USER_MODEL
+            model = User
             fields = ('pk', 'username')
 
     user = UserSerializer(read_only=True)

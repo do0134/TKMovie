@@ -1,6 +1,11 @@
 from django.shortcuts import render
 import json
 import requests
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from models import Movie
+from .serializers.movie import MovieSerializer
+from django.shortcuts import get_object_or_404
 # Create your views here.
 
 TMDB_API_KEY = '38fb6be42c82ed986f17fb3d9195b8bc'
@@ -38,3 +43,13 @@ def get_movie_datas():
             json.dump(total_data, indent="\\t", ensure_ascii=False)
 
 #get_movie_datas()
+
+@api_view(['GET'])
+def movie_detail(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+
+    def movie_detail():
+        serializer = MovieSerializer(movie)
+        return Response(serializer.data)
+    if request.method == 'GET':
+        return movie_detail()
