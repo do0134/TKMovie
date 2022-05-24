@@ -41,9 +41,10 @@
       <!-- Article Like UI -->
       <div>
         Likeit:
-        <button
-          @click="likeArticle(articlePk)"
-        >{{ likeCount }}</button>
+        <button 
+          @click="[likeArticle(articlePk), checkLike()]"
+        >{{ likeCheck }}</button>
+
         <!-- <b-button variant="link" @click="[likeArticle(articlePk), liking()]">
           <b-icon  v-if="isLiking" icon="suit-heart-fill" aria-hidden="true" variant="dark"></b-icon>
           <b-icon v-else icon="suit-heart" aria-hidden="true" variant="dark"></b-icon>
@@ -70,14 +71,22 @@
     components: { CommentList },
     data() {
       return {
-        articlePk: this.$route.params.articlePk
+        articlePk: this.$route.params.articlePk,
+        isLike : false
       }
     },
     computed: {
-      ...mapGetters(['isAuthor', 'article', 'isLoggedIn']),
+      ...mapGetters(['isAuthor', 'article', 'isLoggedIn','currentUser']),
       likeCount() {
         return this.article.like_users?.length
       },
+      likeCheck(){
+        if(this.isLike===true){
+          return true
+        } else{
+          return false
+        }
+      }
       // commentCount() {
       //   return this.comment.length
       // },
@@ -87,10 +96,20 @@
         'fetchArticle',
         'likeArticle',
         'deleteArticle',
-      ])
+        'fetchCurrentUser',
+      ]),
+      checkLike(){
+        for(let i of this.article.like_users){
+          if(i.username==this.currentUser.username){
+            this.isLike = true
+            console.log(this.isLike)
+          }
+        }
+      }
     },
     created() {
-      this.fetchArticle(this.articlePk)
+      this.fetchArticle(this.articlePk),
+      this.checkLike()
     },
   }
 </script>

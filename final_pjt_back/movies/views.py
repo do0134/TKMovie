@@ -4,10 +4,11 @@ import requests
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Movie, Review
-from .serializers.movie import MovieSerializer, ReviewSerializer
+from .serializers.movie import MovieSerializer, ReviewSerializer, MovieWorldCupSerializer
 from django.shortcuts import get_object_or_404
 from django.db.models import Count,Avg
 from rest_framework import status
+import random
 # Create your views here.
 
 TMDB_API_KEY = '38fb6be42c82ed986f17fb3d9195b8bc'
@@ -110,3 +111,17 @@ def review_update_or_delete(request, movie_pk, review_pk):
     elif request.method == 'DELETE':
         return delete_review()
 
+@api_view(['GET'])
+def movie_worldcup(request):
+    movies = Movie.objects.all()
+    ran_num = [_ for _ in range(967)]
+    idx = random.sample(ran_num,16)
+    
+    worldcup_list = []
+    
+    for i in idx:
+        worldcup_list.append(movies[i])
+    
+    serializer = MovieWorldCupSerializer(worldcup_list,many=True)
+    
+    return Response(serializer.data)

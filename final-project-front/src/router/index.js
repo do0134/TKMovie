@@ -19,6 +19,8 @@ import FollowingView from '../views/FollowingView.vue'
 import LikeArticleView from '../views/LikeArticleView.vue'
 import LikeMovieView from '../views/LikeMovieView.vue'
 
+import MovieWorldCupView from '../views/MovieWorldCupView.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -91,6 +93,16 @@ const routes = [
     path: '/profile/:username/likemovies',
     name: 'likemovies',
     component: LikeMovieView,
+  },
+  {
+    path : '/movie/movie_worldcup',
+    name : 'movie_worldcup',
+    component : MovieWorldCupView,
+  },
+  {
+    path: '/movie/:moviePk',
+    name: 'movieDetail',
+    
   },
   {
     path: '/404',
