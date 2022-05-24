@@ -16,6 +16,8 @@ class Movie(models.Model):
     genres = models.ManyToManyField(Genre)
     win_worldcup = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='best_movies')
     user_score = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='score_by_user')
+    movie_like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='movie_like_user')
+    
     def __str__(self):
         return self.title
 
