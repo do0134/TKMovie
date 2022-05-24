@@ -1,8 +1,12 @@
 <template>
   <form @submit.prevent="onSubmit" class="comment-list-form">
-    <label for="comment">comment: </label>
-    <input type="text" id="comment" v-model="content" required>
-    <button>Comment</button>
+    <label for="comment" class="d-flex">
+      {{ currentUser.username }} 님의 댓글 <b-icon icon="chat-text" variant="dark" class="ms-2"></b-icon></label>
+    <div class="d-flex">
+      <input type="text" id="comment" v-model="content" required class="me-1 my-3">
+      <button class="btn btn-outline-warning btn-sm my-3 enter">Enter</button>
+    </div>
+    
   </form>
 </template>
 
@@ -17,7 +21,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['article']),
+    ...mapGetters(['article', 'currentUser']),
   },
   methods: {
     ...mapActions(['createComment']),
@@ -30,9 +34,13 @@ export default {
 </script>
 
 <style>
-.comment-list-form {
-  border: 1px solid black;
-  margin: 1rem;
-  padding: 1rem;
+#comment{
+  width:100%;
+  border: 1px solid #2e4a67;
+  padding: 16px;
+  background: #fff;
+}
+.enter {
+  height: 60px;
 }
 </style>

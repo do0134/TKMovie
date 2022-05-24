@@ -1,6 +1,9 @@
 <template>
-  <div>
-    <h1>New Article</h1>
+  <div class="container">
+    <h1 class="d-flex my-5">
+      <b-button variant="link" :to="{ name: 'articles' }" class="mx-3 mt-0.5">
+        <b-icon icon="arrow-left" aria-hidden="true" variant="dark" class="mt-1"></b-icon>
+      </b-button>New Article</h1>
     <article-form :article="article" action="create"></article-form>
   </div>
 </template>

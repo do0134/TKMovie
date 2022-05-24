@@ -1,15 +1,13 @@
 <template>
-  <div class="comment-list">
-    
-    <ul>
+  <div class="comment-list mt-4">
+    <comment-form class="px-5"></comment-form>
+    <ul class="px-5">
       <comment-list-item 
         v-for="comment in comments" 
         :comment="comment" 
         :key="comment.pk">
       </comment-list-item>        
     </ul>
-
-    <comment-form></comment-form>
   </div>
 </template>
 
@@ -25,7 +23,4 @@ export default {
 </script>
 
 <style>
-.comment-list {
-  border: 1px solid blue;
-}
 </style>
