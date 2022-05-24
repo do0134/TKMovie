@@ -7,7 +7,6 @@ from ..models import Comment
 # CUD => validation
 # R => Data serializing
 class CommentSerializer(serializers.ModelSerializer):
-    
     class UserSerializer(serializers.ModelSerializer):
         class Meta:
             model = settings.AUTH_USER_MODEL

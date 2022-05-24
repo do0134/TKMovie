@@ -9,7 +9,7 @@ def get_movie_datas():
     if False:
         total_data = []
         # 1페이지부터 500페이지까지 (페이지당 20개, 총 10,000개)
-        for i in range(1, 100):
+        for i in range(1, 50):
             request_url = f"https://api.themoviedb.org/3/movie/popular?api_key={TMDB_API_KEY}&language=ko-KR&page={i}"
             movies = requests.get(request_url).json()
             print(i)
@@ -34,7 +34,7 @@ def get_movie_datas():
 
                     total_data.append(data)
 
-        with open("movie_data.json", "w", encoding="utf-8") as w:
-            json.dump(total_data, w, indent="\\t", ensure_ascii=False)
+        with open("movie_data.json",  encoding="UTF-8"):
+            json.dump(total_data, indent="\\t", ensure_ascii=False)
 
-get_movie_datas()
+#get_movie_datas()
