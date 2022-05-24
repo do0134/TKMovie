@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-dark text-white">
+  <div class="bg-black text-white">
     <h2>맨 위에 보여줄 영화는 어떤 영화인가?</h2>
     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">

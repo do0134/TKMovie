@@ -1,5 +1,7 @@
 <template>
   <div>
+    
+person-plus
     <h2>
       {{ profile.username }} 
       <b-button variant="light" :to="{ name: 'profileEdit', params: { username } }">

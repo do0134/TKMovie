@@ -36,33 +36,31 @@
             </td>
           </tr>
         </tbody>
-        <button v-if="isLoggedIn" @click="moveToNewArticle" class="my-2">New</button>
+        <button v-if="isLoggedIn" @click="moveToNewArticle" class="my-3" id="new">New</button>
       </table>
       <div class="sub">
-        <div>
-          <b-card border-variant="dark" header="인기 게시글" align="center" id="card">
-            <ul class="ps-0">
-              <li v-for="article in articles" :key="article.pk" class="mb-2 d-flex ms-5 ps-4">
-                <router-link 
-                  :to="{ name: 'article', params: {articlePk: article.pk} }">
-                  {{ article.title }} 
-                </router-link>
-                <b-icon icon="suit-heart" aria-hidden="true" color="red" class="me-1 ms-3 mt-1"></b-icon>{{ article.like_count }}
-              </li>
-            </ul>
-          </b-card>     
-          <b-card border-variant="dark" header="댓글 많은 게시글" align="center" id="card">
-            <ul class="ps-0">
-              <li v-for="article in articles" :key="article.pk" class="mb-2 d-flex ms-5 ps-4">
-                <router-link 
-                  :to="{ name: 'article', params: {articlePk: article.pk} }">
-                  {{ article.title }} 
-                </router-link>
-                <b-icon icon="suit-heart" aria-hidden="true" color="red" class="me-1 ms-3 mt-1"></b-icon>{{ article.like_count }}
-              </li>
-            </ul>
-          </b-card>          
-        </div>
+        <b-card border-variant="dark" header="인기 게시글" align="center" id="card">
+          <ul class="ps-0">
+            <li v-for="article in articles" :key="article.pk" class="mb-2 d-flex ms-5 ps-4">
+              <router-link 
+                :to="{ name: 'article', params: {articlePk: article.pk} }">
+                {{ article.title }} 
+              </router-link>
+              <b-icon icon="suit-heart" aria-hidden="true" color="red" class="me-1 ms-3 mt-1"></b-icon>{{ article.like_count }}
+            </li>
+          </ul>
+        </b-card>     
+        <b-card border-variant="dark" header="댓글 많은 게시글" align="center" id="card">
+          <ul class="ps-0">
+            <li v-for="article in articles" :key="article.pk" class="mb-2 d-flex ms-5 ps-4">
+              <router-link 
+                :to="{ name: 'article', params: {articlePk: article.pk} }">
+                {{ article.title }} 
+              </router-link>
+              <b-icon icon="suit-heart" aria-hidden="true" color="red" class="me-1 ms-3 mt-1"></b-icon>{{ article.like_count }}
+            </li>
+          </ul>
+        </b-card>   
       </div>
     </div>
 
@@ -105,17 +103,23 @@
 .sub {
   width: 30%;
 }
-ul{
-  list-style-type: none;
-}
-a {
-  text-decoration: none;
-}
 .table {
   height: 80px;
 }
 #card {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+#new {
+  text-decoration: none;
+  color: black;
+  border: 0;
+  box-shadow: none;
+}
+#card > div.card-header {
+  background: rgb(253, 252, 226);
+}
+#card > div.card-body {
+  height: 200px;
 }
 </style>
