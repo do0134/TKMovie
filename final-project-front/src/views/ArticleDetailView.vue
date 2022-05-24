@@ -53,6 +53,7 @@
   </div>
 </template>
 
+
 <script>
   import { mapGetters, mapActions } from 'vuex'
   import CommentList from '@/components/CommentList.vue'
@@ -88,6 +89,7 @@
     },
   }
 </script>
+
 
 <style>
 #link { 

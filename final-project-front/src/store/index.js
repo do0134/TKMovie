@@ -4,7 +4,7 @@ import axios from 'axios'
 import createPersistedState from 'vuex-persistedstate'
 import articles from './modules/articles'
 import accounts from './modules/accounts'
-
+import movies from './modules/movies'
 Vue.use(Vuex)
 
 const API_URL = "https://api.themoviedb.org/3"
@@ -13,7 +13,7 @@ const popMovie = "/movie/popular/"
 const nowPlaying = "/movie/now_playing/"
 
 export default new Vuex.Store({
-  modules: { articles,accounts },
+  modules: { articles,accounts, movies },
   plugins: [
     createPersistedState(),
   ],
@@ -45,7 +45,6 @@ export default new Vuex.Store({
       })
       .then(res=>{
         const moviesData = res.data.results
-        console.log(moviesData)
         commit('GET_POPULAR_MOVIE', moviesData)
       })
       .catch(err=>

@@ -29,4 +29,3 @@ def follow(request, user_pk):
         }
         return JsonResponse(context)
     return 
-
