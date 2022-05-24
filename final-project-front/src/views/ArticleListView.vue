@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>Community</h1>
+    <h1 class="d-flex mt-5 mb-4">Community</h1>
     <div class="d-flex justify-content-between">
       <table class="table me-5">
         <thead>
