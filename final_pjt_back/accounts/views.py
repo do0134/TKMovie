@@ -14,9 +14,9 @@ def profile(request, username):
     return Response(serializer.data)
     
 @api_view(['POST'])
-def follow(request, user_pk):
+def follow(request, username):
     if request.user.is_authenticated:
-        person = get_object_or_404(User, pk=user_pk)
+        person = get_object_or_404(User, username=username)
         if person.following.filter(pk=request.user.pk).exists():
             followed = False
             person.following.remove(request.user.pk)

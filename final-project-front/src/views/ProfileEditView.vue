@@ -6,6 +6,7 @@
       </b-button>
       프로필 편집</h1>
     <my-profile></my-profile>
+    회원정보 수정, 탈퇴
   </div>
 </template>
 

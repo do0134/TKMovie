@@ -11,7 +11,7 @@
       </p>
     </div>
     <hr class="mt-0" style="border: solid 2px;" id="hr">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between mx-3">
       <div class="d-flex">
         <h2>{{ article.title }}</h2>
         <router-link :to="{ name: 'profile', params: { username: article.user.username } }" class="mt-2 ms-2">
@@ -25,12 +25,11 @@
         <p class="mt-2 ms-2">시간 넣기~</p>
       </div>
     </div>
-    
-    <hr>
-    <p class="d-flex">
+    <hr class="mt-0">
+    <p class="d-flex mx-1">
       {{ article.content }}
     </p>
-    <!-- Article Edit/Delete UI -->
+    <hr style="border: solid 2px;" id="hr">
     <div class="d-flex justify-content-end">
       <!-- Article Like UI -->
       <div v-if="isAuthor && isLoggedIn">
@@ -43,8 +42,6 @@
       </div>
       
     </div>
-    
-    <hr style="border: solid 2px;" id="hr">
     <!-- Comment UI -->
     <comment-list :comments="article.comments"></comment-list>
 

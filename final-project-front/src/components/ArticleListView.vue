@@ -9,8 +9,7 @@
             <th scope="col">제목</th>
             <th scope="col">작성자</th>
             <th scope="col">날짜</th>
-            <th scope="col"><b-icon icon="suit-heart" aria-hidden="true" variant="danger" class="me-1"></b-icon></th>
-            <th scope="col"><b-icon icon="chat-dots" aria-hidden="true" variant="success" class="me-1"></b-icon></th>
+            <th scope="col">좋아요 수</th>
           </tr>
         </thead>
         <tbody>
@@ -35,16 +34,23 @@
             <td>
               <span>{{ article.like_count }}</span>
             </td>
-            <td>
-              <span>{{ article.comment_count }}</span>
-            </td>
           </tr>
         </tbody>
         <button v-if="isLoggedIn" @click="moveToNewArticle" class="my-3" id="new">New</button>
       </table>
       <div class="sub">
         <popular-article></popular-article>     
-        <many-comment></many-comment>   
+        <b-card border-variant="dark" header="댓글 많은 게시글" align="center" id="card">
+          <ul class="ps-0">
+            <li v-for="article in articles" :key="article.pk" class="mb-2 d-flex ms-5 ps-4">
+              <router-link 
+                :to="{ name: 'article', params: {articlePk: article.pk} }">
+                {{ article.title }} 
+              </router-link>
+              <b-icon icon="suit-heart" aria-hidden="true" color="red" class="me-1 ms-3 mt-1"></b-icon>{{ article.like_count }}
+            </li>
+          </ul>
+        </b-card>   
       </div>
     </div>
     
@@ -57,14 +63,12 @@
   import { mapActions, mapGetters } from 'vuex'
   import ArticleListCreated from '@/components/ArticleListCreated.vue'
   import PopularArticle from '@/components/PopularArticle.vue'
-  import ManyComment from '@/components/ManyComment.vue'
 
   export default {
     name: 'ArticleList',
     components : {
       ArticleListCreated,
-      PopularArticle,
-      ManyComment
+      PopularArticle
     },
     computed: {
       ...mapGetters(['articles', 'isLoggedIn'])
@@ -89,6 +93,9 @@
 </script>
 
 <style>
+.sub {
+  width: 30%;
+}
 .table {
   height: 80px;
 }
@@ -104,5 +111,8 @@
 }
 #card > div.card-header {
   background: rgb(253, 252, 226);
+}
+#card > div.card-body {
+  height: 200px;
 }
 </style>
