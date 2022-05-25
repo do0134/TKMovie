@@ -28,5 +28,6 @@ export default {
   movies: {
     movie: moviePk => HOST + MOVIES + `${moviePk}/`,
     movieWorldcup: () => HOST + MOVIES + 'movie_worldcup/',
+    getWorldcupWinner: moviePk => HOST + MOVIES + `movie_worldcup/${moviePk}/win/`
   }
 }

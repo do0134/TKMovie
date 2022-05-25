@@ -9,6 +9,7 @@ export default {
   state: {
     movieWorldcup: [],
     movie: {},
+
   },
 
   getters: {
@@ -33,6 +34,7 @@ export default {
         })
         .catch(err => console.error(err.response))
     },
+    
     fetchMovie({ commit, getters }, moviePk) {
       console.log(moviePk)
       axios({
@@ -48,5 +50,18 @@ export default {
           }
         })
     },
+
+    worldcupWin({ commit,getters }, moviePk) {
+      console.log(moviePk)
+      axios({
+        url: drf.movies.getWorldcupWinner(moviePk),
+        method: 'post',
+        headers: getters.authHeader,
+      })
+      .then(res => commit('SET_MOVIE',res.data))
+      .catch(err => console.error(err.response))
+    },
+
+
   }
 }

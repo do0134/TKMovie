@@ -36,6 +36,16 @@ class MovieWorldCupSerializer(serializers.ModelSerializer):
         fields = ('pk','title','poster_path','user')
 
 
+class WorldcupWinner(serializers.ModelSerializer):
+    class UserSerializer(serializers.ModelSerializer):
+        class Meta : 
+            model = User
+            fields = ('pk',)
+    user = UserSerializer(read_only=True)
+    class Meta:
+        model = Movie
+        fields = ('pk','user')
+
 # class MovieListSerializer(serializers.ModelSerializer):
 #     class UserSerializer(serializers.ModelSerializer):
 #         class Meta:
