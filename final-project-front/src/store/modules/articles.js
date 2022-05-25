@@ -37,6 +37,7 @@ export default {
         .then(res => commit('SET_ARTICLES', res.data))
         .catch(err => console.error(err.response))
     },
+    
     fetchArticle({ commit, getters }, articlePk) {
       axios({
         url: drf.articles.article(articlePk),

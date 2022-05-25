@@ -26,7 +26,7 @@ export default {
       HOST + ARTICLES + `${articlePk}/` + COMMENTS + `${commentPk}/`,
   },
   movies: {
-    movie: moviePk => HOST + MOVIES + `${ moviePk }/`,
+    movie: moviePk => HOST + MOVIES + `${moviePk}/`,
     movieWorldcup: () => HOST + MOVIES + 'movie_worldcup/',
   }
 }

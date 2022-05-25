@@ -20,6 +20,7 @@ import LikeArticleView from '../views/LikeArticleView.vue'
 import LikeMovieView from '../views/LikeMovieView.vue'
 
 import MovieWorldCupView from '../views/MovieWorldCupView.vue'
+import MovieDetailView from '../views/MovieDetailView.vue'
 
 Vue.use(VueRouter)
 
@@ -101,8 +102,8 @@ const routes = [
   },
   {
     path: '/movie/:moviePk',
-    name: 'movieDetail',
-    
+    name: 'moviedetail',
+    component: MovieDetailView
   },
   {
     path: '/404',

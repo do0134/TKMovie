@@ -34,6 +34,7 @@ export default {
         .catch(err => console.error(err.response))
     },
     fetchMovie({ commit, getters }, moviePk) {
+      console.log(moviePk)
       axios({
         url: drf.movies.movie(moviePk),
         method: 'get',
