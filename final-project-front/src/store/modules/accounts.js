@@ -119,6 +119,17 @@ export default {
           console.error(err.response)
         })
     },
+    following({ commit, getters }, username) {
+      console.log(username)
+      axios({
+        url: drf.accounts.following(username),
+        method: 'POST',
+        headers: getters.authHeader,
+      })
+        .then(res => {
+          commit('SET_PROFILE', res.data)})
+        .catch(err => console.error(err.response))
+    },
 
     fetchCurrentUser({ commit, getters, dispatch }) {
 
