@@ -4,7 +4,7 @@ import requests
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Movie, Review
-from .serializers.movie import MovieSerializer, ReviewSerializer, MovieWorldCupSerializer
+from .serializers.movie import MovieSerializer, ReviewSerializer, MovieWorldCupSerializer,WorldcupWinner
 from django.shortcuts import get_object_or_404
 from django.db.models import Count,Avg
 from rest_framework import status
@@ -125,3 +125,18 @@ def movie_worldcup(request):
     serializer = MovieWorldCupSerializer(worldcup_list,many=True)
     
     return Response(serializer.data)
+
+@api_view(['POST'])
+def get_worldcupwinner(request,movie_pk):
+    movie = get_object_or_404(Movie,pk = movie_pk)
+    user = request.user
+    if movie.win_worldcup.filter(pk=user.pk).exists():
+
+        serializer = WorldcupWinner(movie)
+        return Response(serializer.data)
+    else:
+
+        movie.win_worldcup.add(user)
+        serializer = WorldcupWinner(movie)
+        return Response(serializer.data)
+
