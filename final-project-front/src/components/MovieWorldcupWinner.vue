@@ -3,35 +3,22 @@
   <div :src="getBack" alt=backUrl class = "backgroundImg" :style="backUrl"></div>
   <div class = "wrapper">
     <img :src="posterUrl" alt=imgUrl class = "posterImg">
-    <div class="content mt-5 ms-5">
-      <h2 class = "winner-title">{{ titleC }}</h2>
-      <button class="btn btn-white">
-        <router-link :to="{ name: 'moviedetail', params: { moviePk: movie.pk } }"> 
-          리뷰 쓰러 가기
-        </router-link></button>
+    <div class="content mt-5 ms-5 winner-title">
+      <div class="d-flex justify-content-between">
+        <h2 class = "d-flex" style="font-size:40px;">
+          <b-icon icon="camera-reels" animation="fade" font-scale="1" class="me-3"></b-icon>{{ titleC }}</h2>
+        <p class = "d-flex mt-4" style="font-size:20px;">개봉<span class="mx-2"></span>{{ releasedDate }}</p>
+      </div>
+      <hr class = "my-0">
+      <span class = "mt-3 vote" style="font-size:20px;">평점<span class="mx-2"></span>{{ voteAvg }}</span>
+      <span class = "" style="font-size:25px;">{{ genres }}(시리얼라이저 고치고 넣기!!)</span>
+      <!-- <p class = "winner-title"><span v-for="genre in genres" :key="genre.id">{{genre.name}}</span></p> -->
+      <p class = "mt-4" style="font-size:25px;">{{ overviewC }}</p>
+      <p @click="goDetail()" class="mb-0 d-flex justify-content-end" style="cursor:pointer; font-weight:bold; font-color:white; font-size:25px;">
+        <b-icon icon="pencil-square" aria-hidden="true" variant="white" class="me-2"></b-icon> 리뷰 작성하기</p>
     </div>
   </div>
-  <!-- <div class="content">
-    <h2 class = "winner-title">{{ titleC }}</h2>
-    <button class="btn btn-primary">
-      <router-link :to="{ name: 'moviedetail', params: { moviePk: movie.pk } }"> 
-        리뷰 쓰러 가기
-      </router-link></button>
-  </div> -->
 </div>
-<!-- <div class="container">
-  <div class="row">
-    <div class="col-12">
-      <img :src="getBack" alt="backUrl" class = "backgroundImg">
-      <img :src="posterUrl" alt=imgUrl class = "posterImg">
-      <h2 class = "winner-title">{{ titleC }}</h2>
-      <button class="btn btn-primary">
-        <router-link :to="{ name: 'moviedetail', params: { moviePk: movie.pk } }"> 
-          리뷰 쓰러 가기
-        </router-link></button> 
-    </div>
-  </div>
-</div> -->
 </template>
 
 <script>
@@ -52,11 +39,14 @@ export default {
       backUrl: '',
       title: '',
       overview: '',
+      vote_avg: '',
+      genres: '',
+      released_date:''
     }
   },
   methods : {
     getPopularMovie(){
-      const GET_IMAGE = `${this.movie.pk}/images`
+      const GET_IMAGE = `${this.movie.id}/images`
       const params = {
         api_key : API_KEY,
       }
@@ -74,7 +64,13 @@ export default {
     },
     getTitle(){
       this.title = this.movie.title,
-      this.overview = this.movie.overview
+      this.overview = this.movie.overview,
+      this.vote_avg = this.movie.vote_avg
+      this.genres = this.movie.genres
+      this.released_date = this.movie.released_date
+    },
+    goDetail() {
+        this.$router.push({ name: 'moviedetail', params: { moviePk: this.movie.id } })
     }
   },
   computed:{
@@ -86,6 +82,15 @@ export default {
     },
     overviewC(){
       return this.overview
+    },
+    voteAvg() {
+      return this.vote_avg
+    },
+    genresC() {
+      return this.genres
+    },
+    releasedDate() {
+      return this.released_date
     }
   },
   created(){
@@ -106,34 +111,19 @@ export default {
   background-position: center;
 }
 .wrapper {
-  width: 100%;
+  width: 80%;
   position: absolute;
   top:20vh;
-  left:20vw;
+  left:10vw;
 }
 .posterImg{
   max-width: 100%;
   height: auto;
 }
-/* .content {
-  position: absolute;
-  top:200px;
-  right:200px;
-} */
-/* .backgroundImg{
-  width : 1600px;
-  height : 775px;
-  opacity: 0.3;
-  display: flex;
-  justify-content: center;
-} */
-
 .winner-title{
   color: white;
 }
-/* .winner-overview{
-  color:white;
-  position: absolute;
-
-} */
+.vote {
+  left: 10vw;
+}
 </style>
