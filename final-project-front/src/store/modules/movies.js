@@ -9,13 +9,13 @@ export default {
   state: {
     movieWorldcup: [],
     movie: {},
+    winner:{},
   },
 
   getters: {
     movieWorldcup: state => state.movieWorldcup,
     movie: state => state.movie,
-    winner: state => state.winner,
-    
+    winner: state => state.winner, 
   },
 
   mutations: {
