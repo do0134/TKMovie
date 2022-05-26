@@ -1,46 +1,64 @@
 <template>
   <div class="bg-black text-white">
-    <h2>맨 위에 보여줄 영화는 어떤 영화인가?</h2>
-    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active" data-bs-interval="10000">
-          <img src="#" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item" data-bs-interval="2000">
-          <img src="#" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="#" class="d-block w-100" alt="...">
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
+    <div>
+    <b-carousel
+      id="carousel-1"
+      v-model="slide"
+      :interval="4000"
+      controls
+      indicators
+      background="#ababab"
+      img-width="1024"
+      img-height="560"
+      style="text-shadow: 1px 1px 2px #333;"
+      @sliding-start="onSlideStart"
+      @sliding-end="onSlideEnd"
+    >
+      <!-- Text slides with image -->
+      <b-carousel-slide
+        img-src="https://ifh.cc/g/3Tmfca.jpg"
+      >
+      </b-carousel-slide>
+
+      <!-- Slides with custom text -->
+      <b-carousel-slide img-src="https://ifh.cc/g/jjHQAT.png">
+
+      </b-carousel-slide>
+
+      <!-- Slides with image only -->
+      <b-carousel-slide img-src="https://ifh.cc/g/165RrQ.jpg"></b-carousel-slide>
+
+      <!-- Slides with img slot -->
+      <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
+      <b-carousel-slide img-src="https://ifh.cc/g/tzm3dp.jpg"></b-carousel-slide>
+
+      <!-- Slide with blank fluid image to maintain slide aspect ratio -->
+
+    </b-carousel>
+
+  </div>
+    <br>
+    
+    <h2>PopularMovie</h2>
+    <div class = "popular">
+      <VueSlickCarousel v-bind="settings" :arrows="true" @init="onInitCarousel">
+        <popular-movie-card v-for="movie in popularMovie" :key="movie.id" :movie="movie" />
+      </VueSlickCarousel>
     </div>
     <br>
     
-    <h2>PopularMovie (영화마다 datail 걸어주는 것 아직 안 함)</h2>
-
-    <VueSlickCarousel v-bind="settings" :arrows="true" >
-      <popular-movie-card v-for="movie in popularMovie" :key="movie.id" :movie="movie" />
-    </VueSlickCarousel>
-
-    <br>
-
     <h2>Now Playing Movie</h2>
-    <VueSlickCarousel  v-bind="settings" :arrows="true" >      
-      <now-playing-movie-card v-for="movie in nowPlaying" :key="movie.id" :movie="movie"/>    
-    </VueSlickCarousel>
-
-    <h2>{{ currentUser.username }}님 취향 저격 영화</h2>
+    <div class="popular">
+      <VueSlickCarousel  v-bind="settings" :arrows="true" >      
+        <now-playing-movie-card v-for="movie in nowPlaying" :key="movie.id" :movie="movie"/>    
+      </VueSlickCarousel>
+    </div>
+    <h2 v-if="currentUser.pk>0">{{ currentUser.username }}님 취향 저격 영화</h2>
+    <div class="popular">
+      <router-link v-if="currentUser.pk>0 && !winner" :to="{ name: 'movie_worldcup'}"> <button  class="btn btn-primary"> 이상형 월드컵을 해보세요 </button> </router-link>
     
-    <router-link v-if="!winner" :to="{ name: 'movie_worldcup'}"> <button  class="btn btn-primary"> 이상형 월드컵을 해보세요 </button> </router-link>
-    <world-cup-base-list v-else :movie="winner"/>
+      <world-cup-base-list v-else :movie="winner"/>
+    </div>
   </div>
 </template>
 
@@ -73,7 +91,10 @@ export default {
         "slidesToScroll": 3,
         "touchThreshold": 5,
         "variableWidth": true
-        }
+        },
+        slide: 0,
+        sliding: null,
+        fPk: 526896,
 
       // carouselMovie: [],
       // imgUrl: []
@@ -93,6 +114,12 @@ export default {
       this.$store.dispatch('getNowPlayingMovie')
     },
     ...mapActions(['fetchWinner']),
+    onSlideStart() {
+        this.sliding = true
+      },
+      onSlideEnd() {
+        this.sliding = false
+      }
 
 
     // getCarouselMovie() {
@@ -119,16 +146,15 @@ export default {
     display: flex;
     overflow-x: auto;
   }
-  .slick-prev:before {
+  .slick-prev::before {
   left : 0px;
-  content: "<";
-  color: red;
+
+  color: white;
   font-size: 30px;
   }
-  .slick-next {
+  .slick-next::before {
     right : 0px;
-    content: ">";
-    color: red;
+    color: white;
     font-size: 30px;
     background-color : black;
   }
@@ -141,8 +167,34 @@ export default {
   data-v-e4caeaf8{
     display : none;
   }
+  .carousel-item {
+    display:flex;
+    justify-content: center;
+  }
+  .carousel-inner{
+    height: 540px;
+    width: 100%;
+
+  }
+  .d-block{
+    height:540px;
+    width: 100%;
+  }
   /* 옆으로 컨트롤 하는 거(carousel로 하든가 다시 생각)
   .wrapper::-webkit-scrollbar {
     width: 0;
   } */
+  .goDetail1{
+    position:absolute;
+    bottom: 550px;
+    left: 0px;
+    width: 200px;
+    height : 50px;
+    
+  }
+  .popular{
+    width: 1800px;
+    margin-left:40px;
+    
+  }
 </style>
