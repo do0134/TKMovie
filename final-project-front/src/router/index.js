@@ -11,7 +11,6 @@ import LoginView from '@/views/LoginView.vue'
 import LogoutView from '@/views/LogoutView.vue'
 import SignupView from '@/views/SignupView.vue'
 import ProfileView from '@/views/ProfileView.vue'
-import ProfileEditView from '@/views/ProfileEditView.vue'
 import NotFound404 from '../views/NotFound404.vue'
 
 import MovieWorldCupView from '../views/MovieWorldCupView.vue'
@@ -64,11 +63,6 @@ const routes = [
     path: '/profile/:username',
     name: 'profile',
     component: ProfileView,
-  },
-  {
-    path: '/profile/:username/edit',
-    name: 'profileEdit',
-    component: ProfileEditView
   },
   {
     path : '/movie/movie_worldcup',

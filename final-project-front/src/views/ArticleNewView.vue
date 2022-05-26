@@ -3,7 +3,7 @@
     <h1 class="d-flex my-5">
       <b-button variant="link" :to="{ name: 'articles' }" class="mx-3 mt-0.5">
         <b-icon icon="arrow-left" aria-hidden="true" variant="dark" class="mt-1"></b-icon>
-      </b-button>New Article</h1>
+      </b-button><h1 class="communitytitle">New Article</h1></h1>
     <article-form :article="article" action="create"></article-form>
   </div>
 </template>
