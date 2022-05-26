@@ -26,21 +26,25 @@
     
     <h2>PopularMovie (영화마다 datail 걸어주는 것 아직 안 함)</h2>
 
-    <VueSlickCarousel v-bind="settings" :arrows="true" :dots="true" >
+    <VueSlickCarousel v-bind="settings" :arrows="true" >
       <popular-movie-card v-for="movie in popularMovie" :key="movie.id" :movie="movie" />
     </VueSlickCarousel>
 
     <br>
 
     <h2>Now Playing Movie</h2>
-    <VueSlickCarousel v-bind="settings" :arrows="true" :dots="true" >      
+    <VueSlickCarousel  v-bind="settings" :arrows="true" >      
       <now-playing-movie-card v-for="movie in nowPlaying" :key="movie.id" :movie="movie"/>    
     </VueSlickCarousel>
+
+    <h2>{{ currentUser.username }}님 취향 저격 영화</h2>
+    <world-cup-base-list v-if="!winner.length===0" :movie="winner"/>
+    <router-link v-else :to="{ name: 'movieworldcup'}"> <button  class="btn btn-primary"> 이상형 월드컵을 해보세요 </button> </router-link>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState,mapActions,mapGetters } from 'vuex';
 import PopularMovieCard from '@/components/PopularMovieCard.vue';
 import NowPlayingMovieCard from '@/components/NowPlayingMovieCard.vue';
 import VueSlickCarousel from 'vue-slick-carousel'
@@ -48,13 +52,15 @@ import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 // optional style for arrows & dots
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 
+import WorldCupBaseList from '../components/WorldCupBaseList.vue'
 
 export default {
   name : 'MainView',
   components : {
     PopularMovieCard,
     NowPlayingMovieCard,
-    VueSlickCarousel
+    VueSlickCarousel,
+    WorldCupBaseList
   },
   data() {
     return {
@@ -67,12 +73,16 @@ export default {
         "touchThreshold": 5,
         "variableWidth": true
         }
+
       // carouselMovie: [],
       // imgUrl: []
   }},
   computed:{
     ...mapState(['popularMovie']),
     ...mapState(['nowPlaying']),
+    ...mapGetters(['currentUser','winner']),
+
+
   },
   methods : {
     getPopularMovie(){
@@ -80,14 +90,20 @@ export default {
     },
     getNowPlayingMovie(){
       this.$store.dispatch('getNowPlayingMovie')
-    }
+    },
+    ...mapActions(['fetchWinner']),
+
+
     // getCarouselMovie() {
     //   this.carouselMovie = _.sortBy(this.nowPlaying, 'vote_average')
     // }
   },
   created(){
     this.getPopularMovie(),
-    this.getNowPlayingMovie()
+    this.getNowPlayingMovie(),
+    this.fetchWinner(this.currentUser.username)
+
+
     // console.log(this.carouselMovie)
     // this.getCarouselMovie()
   }

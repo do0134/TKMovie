@@ -153,6 +153,4 @@ def winner_base_recommend(request,username):
         serializer = MovieWinnerSerializer(recommendation)
         return Response(serializer.data)
     else: 
-        movie = get_object_or_404(Movie,pk = 12)
-        serializer = MovieWinnerSerializer(movie)
-        return Response(serializer.data)
+        return Response({})
