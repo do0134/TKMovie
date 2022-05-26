@@ -63,19 +63,3 @@ class MovieWinnerSerializer(serializers.ModelSerializer):
         model = Movie
         fields = ('pk', 'user', 'title', 'overview','poster_path','released_date','genres','win_worldcup')
 
-class MovieWinnerSerializer(serializers.ModelSerializer):
-    class UserSerializer(serializers.ModelSerializer):
-        class Meta:
-            model = User
-            fields = ('pk', 'username')
-    
-    class GenreSerializer(serializers.ModelSerializer):
-        class Meta : 
-            model = Genre
-            fields = '__all__'
-    user = UserSerializer(read_only=True)
-    genres = GenreSerializer(read_only=True, many=True)
-    win_worldcup = UserSerializer(read_only=True,many=True)
-    class Meta:
-        model = Movie
-        fields = ('pk', 'user', 'title', 'overview','poster_path','released_date','genres','win_worldcup')
