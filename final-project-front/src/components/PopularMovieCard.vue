@@ -1,27 +1,13 @@
 <template>
-  <div>    
-    <!-- <div>
-      <b-button v-b-modal.modal-scrollable>Show Modal</b-button>
-      <b-modal id="modal-scrollable" scrollable title="Scrollable Content" ok-only>
-        <p v-for="article in articles" :key="article.pk">{{  }}</p>
-        <p @click="goProfile" id="a" class="ms-3 mt-2" style="cursor:pointer">{{  }}</p>
-      </b-modal>
-    </div> -->
-    <!-- <div class="card m-3" id="cardimg" @click="goMovie(movie.id)">    
-      <img :src="imgUrl" class="card-img-top" style="height: 400px; width: 295px;" alt="img">
-        <div class="card-body">
-          <h5 class="card-title fw-bold text-dark">{{movie.title}}</h5>
-        </div>
-    </div> -->
-    <router-link :to="{ name: 'moviedetail', params: { moviePk: movie.id } }">    
-      <div class="card m-3" id="cardimg">    
-        <img :src="imgUrl" class="card-img-top" style="height: 400px; width: 295px;" alt="img">
-          <div class="card-body">
-            <h5 class="card-title fw-bold text-dark">{{movie.title}}</h5>
-          </div>
-      </div>
-    </router-link>
+<div>    
+  <div class="card m-3" id="cardimg">    
+    <img :src="imgUrl" class="card-img-top" style="height: 400px; width: 295px;" alt="img">
+    <div class="title">
+      <span class="more" @click="goMovie(movie.id)" style="cursor:pointer">{{movie.title}}</span>
+    </div>
+    
   </div>
+</div>
 </template>
 
 <script>
@@ -48,8 +34,45 @@ export default {
 <style>
 #cardimg img {
   transition: all 0.2s linear;
+  transition-property: background-color;
+  /*변형 완료 1초*/
+  transition-duration: 1s;
+  /*빠른 시작 서서히 감속*/
+  transition-timing-function: ease-out;
 }
 #cardimg:hover img {
   transform: scale(1.1);
+  filter: brightness(50%);
+  background: rgba(255, 255, 255, 0.3);
+}
+#cardimg {
+  text-align:center;
+}
+.title {
+  line-height:1; 
+  position:absolute; 
+  left:50%; 
+  transform:translateX(-50%); 
+  top:200px; 
+  height:120px; 
+  transition:0.5s all
+}
+.more {
+  display:block; 
+  font-size:18x; 
+  color:#fff; 
+  background:rgb(0, 0, 0); 
+  line-height:40px; 
+  width:200px; 
+  margin-top:30px; 
+  opacity:0; 
+  transition:0.5s all
+}
+#cardimg:hover .more {
+  opacity:1;
+  top:150px;
+}
+#cardimg:hover .title {
+  top:150px;
 }
 </style>

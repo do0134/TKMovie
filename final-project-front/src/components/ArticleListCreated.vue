@@ -32,7 +32,7 @@ export default {
         this.nowDate = String(now.getDate())
       }
       if (nowYear === this.article.created_at.slice(0,4) && this.nowMonth === this.article.created_at.slice(5,7) && this.nowDate === this.article.created_at.slice(8,10)){
-        this.newCreatedAt = this.article.created_at.slice(11,16)
+        this.newCreatedAt = String(this.article.created_at.slice(11,12)+9)+String(this.article.created_at.slice(13,16))
         console.log('here')
         return this.newCreatedAt
       } else if(nowYear === this.article.created_at.slice(0,4)){

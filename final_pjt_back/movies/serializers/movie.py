@@ -62,4 +62,3 @@ class MovieWinnerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = ('pk', 'user', 'title', 'overview','poster_path','released_date','genres','win_worldcup')
-
