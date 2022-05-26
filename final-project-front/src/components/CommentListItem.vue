@@ -1,10 +1,8 @@
 <template>
   <div>
     <li class="comment-list-item d-flex">
-      <div>
-        <router-link :to="{ name: 'profile', params: { username: comment.user.username } }">
-          {{ comment.user.username }}
-        </router-link>님의 댓글 
+      <div class="d-flex">
+        <p @click="goProfile" style="cursor:pointer" id="a" class="me-2">{{ comment.user.username }}</p>님의 댓글
         <span v-if="!isEditing" class="ms-5">
           <b-icon icon="chat-square-quote-fill" variant="warning" class="me-1"></b-icon>{{ payload.content }}</span>
       </div>
@@ -58,6 +56,9 @@ export default {
     onUpdate() {
       this.updateComment(this.payload)
       this.isEditing = false
+    },
+    goProfile() {
+      this.$router.push({ name: 'profile', params: { username: this.comment.user.username } })
     }
   },
 

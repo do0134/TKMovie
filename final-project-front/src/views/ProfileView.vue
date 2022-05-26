@@ -6,18 +6,14 @@
         <b-card border-variant="dark" header="작성한 글" align="center" id="mycard">
           <ul class="ps-0">
             <li v-for="article in profile.articles" :key="article.pk" class="my-list">
-              <router-link :to="{ name: 'article', params: { articlePk: article.pk } }">
-                {{ article.title }}
-              </router-link>
+              <p @click="goArticle" style="cursor:pointer" id="a">{{ article.title }}</p>
             </li>
           </ul>
         </b-card>     
         <b-card border-variant="dark" header="좋아요 한 글" align="center" id="mycard">
           <ul class="ps-0">
             <li v-for="article in profile.like_articles" :key="article.pk" class="my-list">
-              <router-link :to="{ name: 'article', params: { articlePk: article.pk } }">
-                {{ article.title }}
-              </router-link>
+              <p @click="goArticle" style="cursor:pointer" id="a">{{ article.title }}</p>
             </li>
           </ul>
         </b-card>          
@@ -37,16 +33,18 @@ export default {
     MyProfile
   },
   computed: {
-    ...mapGetters(['profile']),
+    ...mapGetters(['profile', 'article']),
   },
   methods: {
-    ...mapActions(['fetchProfile'])
+    ...mapActions(['fetchProfile']),
+    goArticle() {
+      this.$router.push({ name: 'article', params: {articlePk: this.article.pk} })
+    }
   },
   created() {
     const payload = { username: this.$route.params.username }
     this.fetchProfile(payload)
-
-  },
+  }
 }
 </script>
 <style>
