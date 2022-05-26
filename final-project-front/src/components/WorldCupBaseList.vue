@@ -1,4 +1,5 @@
 <template>
+  
   <VueSlickCarousel v-bind="settings" :arrows="true">
     <world-cup-base-recommend v-for="movie in worldcupBase" :key="movie.pk" :movie="movie" />
   </VueSlickCarousel>
