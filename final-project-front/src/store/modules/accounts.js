@@ -11,7 +11,7 @@ export default {
     token: localStorage.getItem('token') || '' ,
     currentUser: {},
     profile: {},
-    authError: null,
+    authError: null
   },
   // 모든 state는 getters 를 통해서 접근하겠다.
   getters: {
@@ -119,15 +119,13 @@ export default {
           console.error(err.response)
         })
     },
-    following({ commit, getters }, username) {
-      console.log(username)
+    following({ getters }, username) {
       axios({
         url: drf.accounts.following(username),
-        method: 'POST',
+        method: 'post',
         headers: getters.authHeader,
       })
-        .then(res => {
-          commit('SET_PROFILE', res.data)})
+        .then(() => {})
         .catch(err => console.error(err.response))
     },
 

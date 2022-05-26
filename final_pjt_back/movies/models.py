@@ -13,7 +13,7 @@ class Movie(models.Model):
     vote_avg = models.FloatField()
     overview = models.TextField()
     poster_path = models.CharField(max_length=200)
-    genres = models.ManyToManyField(Genre)
+    genres = models.ManyToManyField(Genre, related_name="genres")
     win_worldcup = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='best_movies')
     movie_like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='movie_like_user')
     

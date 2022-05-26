@@ -50,6 +50,17 @@ export default {
           }
         })
     },
+    likeMovie({ commit, getters }, moviePk) {
+      axios({
+        url: drf.movies.likeMovie(moviePk),
+        method: 'post',
+        headers: getters.authHeader,
+      })
+      .then(res => { 
+        commit('SET_MOVIE', res.data) 
+      })
+      .catch(err => console.error(err.response))
+    },
 
     worldcupWin({ commit,getters }, moviePk) {
       console.log(moviePk)
