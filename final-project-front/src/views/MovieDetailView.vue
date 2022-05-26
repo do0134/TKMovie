@@ -1,8 +1,12 @@
 <template>
-  <div class="my-5 container d-flex">
+<div class="container">
+  <b-button class="d-flex mt-4" variant="link" :to="{ name: 'main' }" id="link" size="lg">
+    <i class="fa-solid fa-house"></i>
+  </b-button>
+  <div class="my-5 d-flex">
     <img :src="`https://image.tmdb.org/t/p/w500${this.movie.poster_path}`" alt="" style="height: 500px">
     <div class="mx-5">
-      <div class="d-flex justify-content-between">
+      <div class="d-flex justify-content-between mx-2">
         <div>
           <h2 class="d-flex">{{ movie.title }}</h2>
           <p class="d-flex ms-1">개봉일 {{ movie.released_date }}</p>
@@ -16,18 +20,21 @@
         </div>
       </div>
       <hr class="my-0">
-      <p class="d-flex ms-2 mt-3 vote">평점 {{ movie.vote_avg }}</p>
-      <p>장르:
-        <span v-for="genre in movie.genres" :key="genre.id">{{genre.name}} |</span>
+      <p class="d-flex ms-2 mt-3">장르
+        <span v-for="genre in movie.genres" :key="genre.id" class="mx-2 circle">{{genre.name}}</span>
       </p>
-      <p>줄거리{{ movie.overview }}</p>
-      
-      <b-button class="mt-2" variant="link" :to="{ name: 'main' }" id="link">
-        <i class="fa-solid fa-house"></i>
-      </b-button>
+      <p class="d-flex ms-2 mt-3">평점<span class="mx-2 circle">{{ movie.vote_avg }}</span></p>
+      <p class="mt-5" style="font-size:20px;">{{ movie.overview }}</p>
     </div>
-    <review-list :reviews="movie.movie_review" :movie="movie"></review-list>
+    <div>
+    <h3><i class="fa-solid fa-comments mx-3 my-"></i>Review</h3>
+      <review-list :reviews="movie.movie_review" :movie="movie" class="my-4"></review-list>
+    </div>
   </div>
+  
+  
+</div>
+  
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'
@@ -70,7 +77,8 @@ export default {
 </script>
 
 <style>
-.vote {
+.circle {
   border: 1px solid green;
+  border-radius: 10px;
 }
 </style>
