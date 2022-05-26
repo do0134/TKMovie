@@ -2,9 +2,13 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-    <img :src="getBack" alt="backUrl" class = "backgroundImg">
-
-    <img :src="posterUrl" alt=imgUrl class = "posterImg">
+      <img :src="getBack" alt="backUrl" class = "backgroundImg">
+      <img :src="posterUrl" alt=imgUrl class = "posterImg">
+      <h2 class = "winner-title">{{ titleC }}</h2>
+      <button class="btn btn-primary">
+        <router-link :to="{ name: 'moviedetail', params: { moviePk: movie.pk } }"> 
+                리뷰 쓰러 가기
+                </router-link></button> 
     </div>
   </div>
 </div>
@@ -26,6 +30,8 @@ export default {
     return {
       posterUrl:`https://image.tmdb.org/t/p/w500${this.movie.poster_path}`,
       backUrl: '',
+      title: '',
+      overview: '',
     }
   },
   methods : {
@@ -45,15 +51,26 @@ export default {
       })
       .catch(err=>
         console.log(err))
+    },
+    getTitle(){
+      this.title = this.movie.title,
+      this.overview = this.movie.overview
     }
   },
   computed:{
     getBack: function() {
       return this.backUrl
+    },
+    titleC(){
+      return this.title
+    },
+    overviewC(){
+      return this.overview
     }
   },
   created(){
-    this.getPopularMovie()
+    this.getPopularMovie(),
+    this.getTitle()
   }
 
 }
@@ -61,13 +78,26 @@ export default {
 
 <style>
 .backgroundImg{
-  width : 100%;
-  height : 100%;
+  width : 1600px;
+  height : 775px;
   opacity: 0.3;
+  display: flex;
+  justify-content: center;
 }
 .posterImg{
   position: absolute;
-  top:175px;
+  top:160px;
   left:80px;
+}
+.winner-title{
+  position: absolute;
+  bottom: 400px;
+  right: 800px;
+  color: white;
+}
+.winner-overview{
+  color:white;
+  position: absolute;
+
 }
 </style>

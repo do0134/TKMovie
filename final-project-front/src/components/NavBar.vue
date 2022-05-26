@@ -8,7 +8,7 @@
       <b-collapse id="nav-collapse" is-nav class="justify-content-between">
         <b-navbar-nav>
           <b-nav-item to="/articles">Community</b-nav-item>
-          <b-nav-item to="#">Recommendation</b-nav-item>
+          <b-nav-item to="/movie/movie_worldcup">Recommendation</b-nav-item>
         </b-navbar-nav>
 
         <b-navbar-nav v-if="isLoggedIn" class="ml-auto">

@@ -20,9 +20,10 @@ export default new Vuex.Store({
   state: {
     nowPlaying : [],
     popularMovie : [],
+    worldcupBase: [],
   },
   getters: {
-
+    worldcupBase: state => state.worldcupBase
   },
   mutations: {
     GET_POPULAR_MOVIE(state,  moviesData){
@@ -31,6 +32,9 @@ export default new Vuex.Store({
     GET_NOWPLAYING_MOVIE(state,  moviesData){
       state.nowPlaying = moviesData
     },
+    GET_WORLDCUP_RECOMMEND(state,moviesData){
+      state.worldcupBase = moviesData
+    }
   },
   actions: {
     getPopularMovie({commit}){
@@ -50,6 +54,7 @@ export default new Vuex.Store({
       .catch(err=>
         console.log(err))
     },
+
     getNowPlayingMovie({commit}){
       const params = {
         api_key : API_KEY,
@@ -62,11 +67,32 @@ export default new Vuex.Store({
       })
       .then(res =>{
         const moviesData = res.data.results
-        console.log(moviesData)
         commit('GET_NOWPLAYING_MOVIE',moviesData)
       })
       .catch(err=>
         console.log(err))
+    },
+    getWorldcupBase({commit}, moviePk){
+      console.log(1123123)
+        const params = {
+          method : 'get',
+          api_key : API_KEY,
+          language : 'ko-kr'
+      }
+      axios({
+        method : 'get',
+        url : API_URL+`/movie/${moviePk}/recommendations`,
+        params : params
+      })
+      .then(res => {
+        console.log(res)
+        const moviesData = res.data.results
+        commit('GET_WORLDCUP_RECOMMEND',moviesData)
+      })
+      .catch(err => console.log(err),
+      console.log(1111))
     }
   },
+
+  
 })

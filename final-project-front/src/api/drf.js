@@ -31,5 +31,6 @@ export default {
     movieWorldcup: () => HOST + MOVIES + 'movie_worldcup/',
     getWorldcupWinner: moviePk => HOST + MOVIES + `movie_worldcup/${moviePk}/win/`,
     likeMovie: moviePk => HOST + MOVIES + `${moviePk}/` + 'like/',
+    setWinner: username=> HOST + MOVIES + `movie_worldcup/${username}/recommend/`
   }
 }

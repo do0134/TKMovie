@@ -50,8 +50,8 @@ def get_movie_datas():
 @api_view(['GET'])
 def movie_detail(request, movie_pk):
     movie = Movie.objects.annotate(
-        review_count = Count('review'),
-        movie_rating = Avg('review__rating')
+        review_count = Count('movie_review'),
+        movie_rating = Avg('movie_review__rating')
     ).get(pk=movie_pk)
     def movie_detail():
         serializer = MovieSerializer(movie)
@@ -148,5 +148,10 @@ def get_worldcupwinner(request,movie_pk):
 def winner_base_recommend(request,username):
     user = request.user
     movie_list = user.best_movies.all()
-    serializer = MovieWinnerSerializer(movie_list,many=True)
-    return Response(serializer.data)
+    if movie_list:
+        recommendation = random.choice(movie_list)
+        serializer = MovieWinnerSerializer(recommendation)
+        return Response(serializer.data)
+    else: 
+
+        return Response({})
