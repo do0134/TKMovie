@@ -3,7 +3,7 @@
     <div class="card m-3" id="cardimg">    
       <img :src="imgUrl" class="card-img-top" style="height: 400px; width: 295px;" alt="img">
       <div class="title">
-        <span class="more" @click="goMovie(movie.id)" style="cursor:pointer">{{movie.title}}</span>
+        <span class="more" @click="goMovie(movie.pk)" style="cursor:pointer">{{movie.title}}</span>
       </div>
     </div>
   </div>
@@ -24,6 +24,9 @@ export default {
     goMovie(movieId) {
       this.$router.push({ name: 'moviedetail', params: { moviePk: movieId } })
     }
+  },
+  created(){
+    console.log(this.movie)
   }
 }
 </script>
