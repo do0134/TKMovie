@@ -1,5 +1,5 @@
 <template>
-  <div class = "worldcup">
+  <div class="worldcup">
     <div class="indexDiv">
       {{ username }}님의 취향저격 영화 월드컵 {{ checkmatch }} {{ totalIndex }}
     </div>
@@ -224,7 +224,6 @@ export default {
 }
 .worldcup{
   background-color: #181818;
-  height: 22.525em;
   font-size: calc(2 * (1vw + 1vh - 1vmin));
   font-family: open sans,helvetica neue,Helvetica,Arial,sans-serif;
 }
