@@ -13,8 +13,8 @@
       </b-button>
       <hr>
       <p>{{ movie.vote_avg }}</p>
-      <p>장르
-        <span v-for="genre in movie.genres" :key="genre.id">{{genre.name}}</span>
+      <p>장르:
+        <span v-for="genre in movie.genres" :key="genre.id">{{genre.name}} |</span>
       </p>
       <p>줄거리{{ movie.overview }}</p>
       
@@ -51,7 +51,6 @@ export default {
     ...mapActions(['fetchMovie', 'likeMovie']),
     checkLike(){
         for (let i of this.movie.movie_like){
-          console.log(this.currentUser)
           if (i === this.currentUser.pk){
             return true
           } 
@@ -60,7 +59,6 @@ export default {
   },
   created() {
     this.fetchMovie(this.moviePk),
-    console.log(this.movie.movie_like),
     this.checkLike()
 
   }

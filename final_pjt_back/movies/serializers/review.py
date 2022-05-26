@@ -11,10 +11,10 @@ class ReviewSerializer(serializers.ModelSerializer):
     class UserSerializer(serializers.ModelSerializer):
         class Meta:
             model = User
-            fields = ('pk', 'username')
+            fields = ('pk',)
 
-    user = UserSerializer(read_only=True)
+
     class Meta:
         model = Review
         fields = ('pk', 'user', 'content', 'movie','rating')
-        read_only_fields = ('movie', )
+        read_only_fields = ('movie','user')
