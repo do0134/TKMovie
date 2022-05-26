@@ -1,14 +1,13 @@
 <template>
-  <div>
-    <router-link :to="{ name: 'moviedetail', params: { moviePk: movie.id } }">
-      <div class="card m-3 " id="cardimg">    
-        <img :src="imgUrl" class="card-img-top" style="height: 400px; width: 295px;" alt="img">
-          <div class="card-body">
-            <h5 class="card-title fw-bold text-dark">{{movie.title}}</h5>
-          </div>
-      </div>
-    </router-link>
+  <div>    
+  <div class="card m-3" id="cardimg">    
+    <img :src="imgUrl" class="card-img-top" style="height: 400px; width: 295px;" alt="img">
+    <div class="title">
+      <span class="more" @click="goMovie(movie.id)" style="cursor:pointer">{{movie.title}}</span>
+    </div>
+    
   </div>
+</div>
 </template>
 
 <script>
@@ -26,10 +25,5 @@ export default {
 </script>
 
 <style>
-#cardimg img {
-  transition: all 0.2s linear;
-}
-#cardimg:hover img {
-  transform: scale(1.1);
-}
+
 </style>
