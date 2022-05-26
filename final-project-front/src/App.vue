@@ -20,16 +20,17 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
-
+#app > div.bg-dack {
+  background-color: rgb(0, 0, 0);
+}
 nav {
-  padding: 30px;
+  padding: 50px;
+  height: 150px;;
 }
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
 }
 
 nav a.router-link-exact-active {

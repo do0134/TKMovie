@@ -1,24 +1,19 @@
 <template>
-  <div>
-    <b-navbar toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand to="/" class="text-danger">Home</b-navbar-brand>
+  <div class="bg-dack">
+    <b-navbar toggleable="lg" type="dark">
+      <b-icon @click="goHome()" style="cursor:pointer" icon="camera-reels" variant="danger" font-scale="4" class="ms-2 animate__animated animate__jackInTheBox animate__infinite"></b-icon>
+      <b-navbar-brand to="/" class="text-danger ms-4 mt-4" style="font-size: 30px;">TKmovie</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-      <b-collapse id="nav-collapse" is-nav class="justify-content-between">
+      <b-collapse id="nav-collapse" is-nav class="justify-content-between mt-4 pt-2" style="font-size: 20px;">
         <b-navbar-nav>
           <b-nav-item to="/articles">Community</b-nav-item>
-          <b-nav-item to="/movie/movie_worldcup">Recommendation</b-nav-item>
+          <b-nav-item to="/movie/movie_worldcup">Movie World Cup<b-icon class="ms-1" icon="star-fill" animation="fade" style="color:gold"></b-icon></b-nav-item>
         </b-navbar-nav>
-
+        
         <b-navbar-nav v-if="isLoggedIn" class="ml-auto">
-          <!-- 검색 버튼 추가하기 -->
-          <!-- <b-nav-form>
-            <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
-          </b-nav-form> -->
           <b-nav-item-dropdown right>
-            <!-- Using 'button-content' slot -->
             <template #button-content>
               <b-avatar variant="dark"></b-avatar>
               <em>{{ currentUser.username }}</em>
@@ -33,42 +28,12 @@
         </b-navbar-nav>
 
         <b-navbar-nav v-else class="ml-auto">
-          <!-- 검색 버튼 추가하기 -->
-          <!-- <b-nav-form>
-            <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
-          </b-nav-form> -->
-
           <b-nav-item to="/login">Login</b-nav-item>
           <b-nav-item to="/signup">SignUp</b-nav-item>
-
-          <!-- 회원가입 부분을 모달창으로 띄워볼까? -->
-          <!-- <b-modal id="sing-up" hide-footer>
-            <template #modal-title>
-              SignUp
-            </template>
-            <form @submit.prevent="signup(credentials)">
-              <div>
-                <label for="username">Username: </label>
-                <input  v-model="credentials.username" type="text" id="username" required/>
-              </div>
-              <div>
-                <label for="password1">Password: </label>
-                <input v-model="credentials.password1" type="password" id="password1" required />
-              </div>
-              <div>
-                <label for="password2">Password Confirmation:</label>
-                <input v-model="credentials.password2" type="password" id="password2" required />
-              </div>
-              <div>
-                <button>Signup</button>
-              </div>
-            </form>
-            <b-button class="mt-3" block @click="$bvModal.hide('sing-up')">Close Me</b-button>
-          </b-modal> -->
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
+    
   </div>
 
 </template>
@@ -76,6 +41,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import 'animate.css'
+
   export default {
     name: 'NavBar',
     computed: {
@@ -83,6 +50,11 @@ import { mapGetters } from 'vuex'
       username() {
         return this.currentUser.username ? this.currentUser.username : 'guest'
       },
+    },
+    methods: {
+      goHome() {
+        this.$router.push({ name: 'main' })
+      }
     }
   }
 </script>

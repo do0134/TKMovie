@@ -214,7 +214,7 @@ export default {
 
 <style>
 .indexDiv{
-  height: 72px;
+  height: 80px;
   display:flex;
   width: 100%;
   align-items: center;
@@ -223,6 +223,7 @@ export default {
   color: white;
 }
 .worldcup{
+  height: 100vh;
   background-color: #181818;
   font-size: calc(2 * (1vw + 1vh - 1vmin));
   font-family: open sans,helvetica neue,Helvetica,Arial,sans-serif;

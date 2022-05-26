@@ -14,11 +14,6 @@ import ProfileView from '@/views/ProfileView.vue'
 import ProfileEditView from '@/views/ProfileEditView.vue'
 import NotFound404 from '../views/NotFound404.vue'
 
-import FollowerView from '../views/FollowerView.vue'
-import FollowingView from '../views/FollowingView.vue'
-import LikeArticleView from '../views/LikeArticleView.vue'
-import LikeMovieView from '../views/LikeMovieView.vue'
-
 import MovieWorldCupView from '../views/MovieWorldCupView.vue'
 import MovieDetailView from '../views/MovieDetailView.vue'
 
@@ -74,26 +69,6 @@ const routes = [
     path: '/profile/:username/edit',
     name: 'profileEdit',
     component: ProfileEditView
-  },
-  {
-    path: '/profile/:username/followers',
-    name: 'followers',
-    component: FollowerView,
-  },
-  {
-    path: '/profile/:username/followings',
-    name: 'followings',
-    component: FollowingView,
-  },
-  {
-    path: '/profile/:username/likearticles',
-    name: 'likearticles',
-    component: LikeArticleView,
-  },
-  {
-    path: '/profile/:username/likemovies',
-    name: 'likemovies',
-    component: LikeMovieView,
   },
   {
     path : '/movie/movie_worldcup',

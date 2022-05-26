@@ -10,9 +10,7 @@
         <p class = "d-flex mt-4" style="font-size:20px;">개봉<span class="mx-2"></span>{{ releasedDate }}</p>
       </div>
       <hr class = "my-0">
-      <span class = "mt-3 vote" style="font-size:20px;">평점<span class="mx-2"></span>{{ voteAvg }}</span>
-      <span class = "" style="font-size:25px;">{{ genres }}(시리얼라이저 고치고 넣기!!)</span>
-      <!-- <p class = "winner-title"><span v-for="genre in genres" :key="genre.id">{{genre.name}}</span></p> -->
+      <span class = "mt-3 d-flex" style="font-size:20px;">평점<span class="mx-2"></span>{{ voteAvg }}</span>
       <p class = "mt-4" style="font-size:25px;">{{ overviewC }}</p>
       <p @click="goDetail()" class="mb-0 d-flex justify-content-end" style="cursor:pointer; font-weight:bold; font-color:white; font-size:25px;">
         <b-icon icon="pencil-square" aria-hidden="true" variant="white" class="me-2"></b-icon> 리뷰 작성하기</p>
@@ -104,7 +102,7 @@ export default {
 <style>
 .backgroundImg {
   width: 100%;
-  height: 100vh;
+  height: 90vh;
   opacity: 0.3;
   background-repeat: no-repeat;
   background-size: cover;
@@ -113,7 +111,7 @@ export default {
 .wrapper {
   width: 80%;
   position: absolute;
-  top:20vh;
+  top:30vh;
   left:10vw;
 }
 .posterImg{
@@ -122,8 +120,5 @@ export default {
 }
 .winner-title{
   color: white;
-}
-.vote {
-  left: 10vw;
 }
 </style>
