@@ -3,7 +3,7 @@
     <label for="comment" class="d-flex">
       {{ currentUser.username }} 님의 댓글 작성하기 <b-icon icon="chat-text" variant="dark" class="ms-2 mt-1"></b-icon></label>
     <div class="d-flex">
-      <input type="text" id="comment" v-model="content" required class="me-1 my-3">
+      <input type="text" id="comment" v-model="content" required class="me-1 my-3" placeholder="댓글을 남겨보세요!" onfocus="this.placeholder=''" onblur="this.placeholder='댓글을 남겨보세요!'">
       <button class="btn btn-outline-warning btn-sm my-3 enter">Enter</button>
     </div>
     
