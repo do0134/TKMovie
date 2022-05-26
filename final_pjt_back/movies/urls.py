@@ -17,5 +17,6 @@ urlpatterns = [
     path('movie_worldcup/<int:movie_pk>/win/',views.get_worldcupwinner),
     path('movie_worldcup/<username>/recommend/',views.winner_base_recommend),
     path('movie_worldcup/topten/',views.top_ten),
-    path('movie_worldcup/follower_like/<int:user_pk>',views.follower_like)
+    path('movie_worldcup/follower_like/<int:user_pk>',views.follower_like),
+    path('movie_worldcup/<username>/', views.get_my_winner),
 ]
