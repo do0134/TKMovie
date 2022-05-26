@@ -4,13 +4,14 @@ import requests
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Movie, Review
-from .serializers.movie import MovieSerializer, ReviewSerializer, MovieWorldCupSerializer,WorldcupWinner
+from .serializers.movie import MovieSerializer, ReviewSerializer, MovieWorldCupSerializer,WorldcupWinner,MovieWinnerSerializer
 from django.shortcuts import get_object_or_404
 from django.db.models import Count,Avg
 from rest_framework import status
 import random
+from django.contrib.auth import get_user_model
 # Create your views here.
-
+User = get_user_model()
 TMDB_API_KEY = '38fb6be42c82ed986f17fb3d9195b8bc'
 
 def get_movie_datas():
@@ -50,8 +51,8 @@ def get_movie_datas():
 @api_view(['GET'])
 def movie_detail(request, movie_pk):
     movie = Movie.objects.annotate(
-        review_count = Count('review'),
-        movie_rating = Avg('review__rating')
+        review_count = Count('review',distinct=True),
+        movie_rating = Avg('review__rating',distinct=True)
     ).get(pk=movie_pk)
     def movie_detail():
         serializer = MovieSerializer(movie)
@@ -61,7 +62,10 @@ def movie_detail(request, movie_pk):
 
 @api_view(['POST'])
 def like_movie(request, movie_pk):
-    movie = get_object_or_404(Movie, pk=movie_pk)
+    movie = Movie.objects.annotate(
+        review_count = Count('review',distinct=True),
+        movie_rating = Avg('review__rating',distinct=True)
+    ).get(pk=movie_pk)
     user = request.user
     if movie.movie_like.filter(pk=user.pk).exists():
         movie.movie_like.remove(user)
@@ -140,3 +144,10 @@ def get_worldcupwinner(request,movie_pk):
         serializer = WorldcupWinner(movie)
         return Response(serializer.data)
 
+
+@api_view(['GET'])
+def winner_base_recommend(request,username):
+    user = request.user
+    movie_list = user.best_movies.all()
+    serializer = MovieWinnerSerializer(movie_list,many=True)
+    return Response(serializer.data)

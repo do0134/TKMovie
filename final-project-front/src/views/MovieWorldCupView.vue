@@ -3,14 +3,21 @@
     <div class="indexDiv">
       {{ username }}님의 취향저격 영화 월드컵 {{ checkmatch }} {{ totalIndex }}
     </div>
+    
+    
     <movie-world-cup 
+    v-if="!checkFinish"
     :movie="reA"
     @send-winner="win" />
 
     <movie-world-cup 
+    v-if="!checkFinish"
     :movie="reB" 
     @send-winner="win" />
-
+    <movie-worldcup-winner 
+    v-else
+    :movie="sendWinner"
+    />
   </div>
 </template>
 
@@ -18,10 +25,12 @@
 import { mapGetters, mapActions } from 'vuex'
 
 import MovieWorldCup from '../components/MovieWorldCup.vue'
+import MovieWorldcupWinner from '@/components/MovieWorldcupWinner.vue'
+
 
 export default {
   name : 'MovieWorldCupView',
-  components: { MovieWorldCup },
+  components: { MovieWorldCup, MovieWorldcupWinner },
   data(){
     return{
       sixteen_list : [],
@@ -37,6 +46,8 @@ export default {
       bigIdx: 8,
       isFinal:false,
       moviePk: 0,
+      isFinish: false,
+      winner: {},
     }
   },
   computed : {
@@ -96,6 +107,12 @@ export default {
     },
     movieKey(){
       return this.moviePk
+    },
+    checkFinish(){
+      return this.isFinish
+    },
+    sendWinner(){
+      return this.winner
     }
   },
   methods : {
@@ -175,9 +192,10 @@ export default {
          this.isFinal = true
        }
        else  {
+         this.isFinish = true
+         this.winner = movie
          this.moviePk = movie.pk
          this.worldcupWin(this.movieKey)
-         console.log(this.movieKey)
          console.log('chickendinner')
        }
     },
