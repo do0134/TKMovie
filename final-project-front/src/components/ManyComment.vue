@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-card border-variant="dark" header="댓글 많은 게시글" align="center" id="card">
+    <b-card border-variant="dark" header="댓글 많은 게시글(TOP 5)" align="center" id="card">
       <ul class="ps-0">
         <li v-for="article in cArticles" :key="article.pk" class="mb-2 d-flex ms-3">
           <router-link 

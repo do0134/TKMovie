@@ -5,28 +5,28 @@
       <b-button class="mt-2" variant="link" :to="{ name: 'articles' }" id="link">
         <b-icon icon="list" aria-hidden="true" variant="dark" class="me-1"></b-icon>목록으로
       </b-button>
-      <p class="mt-3 me-3">
-        <b-icon icon="suit-heart" aria-hidden="true" variant="dark" class="me-1"></b-icon>{{ likeCount }}
-        <b-icon icon="chat-dots" aria-hidden="true" variant="dark" class="ms-2 me-1"></b-icon>{{ commentCount }}
+      <p class="mt-3 me-3 mb-0">
+        <b-button @click="[likeArticle(articlePk)]" variant="link" id="link">
+          <b-icon v-if="changeLike===false" icon="heart" aria-hidden="true" variant="danger"></b-icon>
+          <b-icon v-else icon="heart-fill" aria-hidden="true" variant="danger"></b-icon>
+        </b-button>{{ likeCount }}
+        <b-icon icon="chat-dots" font-scale="1.2" aria-hidden="true" variant="dark" class="ms-3 me-2"></b-icon>{{ commentCount }}
       </p>
     </div>
     <hr class="mt-0" style="border: solid 2px;" id="hr">
     <div class="d-flex justify-content-between mx-3">
       <div class="d-flex">
         <h2>{{ article.title }}</h2>
-        <router-link :to="{ name: 'profile', params: { username: article.user.username } }" class="mt-2 ms-2">
-          | {{ article.user.username }}</router-link>
+        <p @click="goProfile" id="a" class="ms-3 mt-2" style="cursor:pointer">| {{ article.user.username }}</p>
       </div>
       <div class="d-flex">
-        <b-button @click="[likeArticle(articlePk)]" variant="link" id="link" class="pe-0 pt-1">
-          <b-icon v-if="changeLike===false" icon="heart" aria-hidden="true" variant="danger"></b-icon>
-          <b-icon v-else icon="heart-fill" aria-hidden="true" variant="danger"></b-icon>
-        </b-button>
-        <p class="mt-2 ms-2">시간 넣기~</p>
+
+        <p class="mt-2 ms-2">
+          작성일 : {{ article.created_at.substr(0,10) }} <article-list-created :article="article"></article-list-created></p>
       </div>
     </div>
     <hr class="mt-0">
-    <p class="d-flex mx-1">
+    <p class="d-flex mx-3">
       {{ article.content }}
     </p>
     <hr style="border: solid 2px;" id="hr">
@@ -52,19 +52,19 @@
 <script>
   import { mapGetters, mapActions } from 'vuex'
   import CommentList from '@/components/CommentList.vue'
-
+  import ArticleListCreated from '@/components/ArticleListCreated.vue'
 
 
   export default {
     name: 'ArticleDetail',
-    components: { CommentList },
+    components: { CommentList, ArticleListCreated },
     data() {
       return {
         articlePk: this.$route.params.articlePk
       }
     },
     computed: {
-      ...mapGetters(['isAuthor', 'article', 'isLoggedIn', 'currentUser']),
+      ...mapGetters(['isAuthor', 'article', 'isLoggedIn', 'currentUser', 'articles']),
       likeCount() {
         return this.article.like_users?.length
       },
@@ -90,6 +90,9 @@
           } 
         } return false
       },
+      goProfile() {
+        this.$router.push({ name: 'profile', params: { username: this.article.user.username } })
+      }
     },
     created() {
       this.fetchArticle(this.articlePk),
@@ -108,5 +111,8 @@
 }
 #hr {
   color: rgb(255, 196, 0);
+}
+#a {
+  font-weight: bold;
 }
 </style>

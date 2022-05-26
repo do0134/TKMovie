@@ -7,7 +7,7 @@
             :to="{ name: 'article', params: {articlePk: article.pk} }">
             {{ article.title }} 
           </router-link>
-          <b-icon icon="suit-heart" aria-hidden="true" color="red" class="me-1 ms-3 mt-1"></b-icon>{{ article.like_count }}
+          <b-icon icon="suit-heart" aria-hidden="true" class="me-1 ms-3 mt-1" style="color:hotpink"></b-icon>{{ article.like_count }}
         </li>
       </ul>
     </b-card>

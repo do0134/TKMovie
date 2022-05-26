@@ -17,15 +17,15 @@ def profile(request, username):
 def follow(request, username):
     if request.user.is_authenticated:
         person = get_object_or_404(User, username=username)
-        if person.following.filter(pk=request.user.pk).exists():
+        if person.followers.filter(pk=request.user.pk).exists():
             followed = False
-            person.following.remove(request.user.pk)
+            person.followers.remove(request.user.pk)
         else:
             followed = True
-            person.following.add(request.user.pk)       
+            person.followers.add(request.user.pk)       
         context = {
             'followed': followed,
-            'count' : person.following.count(),
+            'count' : person.followers.count(),
         }
         return JsonResponse(context)
     return 

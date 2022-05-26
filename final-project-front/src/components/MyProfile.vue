@@ -12,9 +12,19 @@ person-plus
       </b-button></h2>
     <ul class="d-flex justify-content-center">
       <li class="my-list">게시글 {{ articleCount }}</li>
-      <li class="my-list">팔로워 {{ followingCount }}</li>
-      <li class="my-list">팔로우 {{ followersCount }}</li>
+      <div>
+        <!-- <div>
+          <b-button v-b-modal.modal-scrollable>Show Modal</b-button>
+          <b-modal id="modal-scrollable" scrollable title="Scrollable Content" ok-only>
+            <p v-for="article in articles" :key="article.pk">{{  }}</p>
+            <p @click="goProfile" id="a" class="ms-3 mt-2" style="cursor:pointer">{{  }}</p>
+          </b-modal>
+        </div> -->
+      </div>
+      <li class="my-list">팔로워 {{ followersCount }}</li>
+      <li class="my-list">팔로우 {{ followingCount }}</li>
     </ul>
+    
   </div>
 </template>
 
@@ -48,6 +58,9 @@ export default {
     const payload = { username: this.$route.params.username }
     this.fetchProfile(payload)
   },
+  // goProfile() {
+  //   this.$router.push({ name: 'profile', params: { username: this.article.user.username } })
+  // }
 }
 </script>
 
