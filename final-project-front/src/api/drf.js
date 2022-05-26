@@ -4,6 +4,7 @@ const ACCOUNTS = 'accounts/'
 const ARTICLES = 'articles/'
 const COMMENTS = 'comments/'
 const MOVIES = 'movies/'
+const REVIEWS = 'reviews/'
 
 export default {
   accounts: {
@@ -31,5 +32,7 @@ export default {
     movieWorldcup: () => HOST + MOVIES + 'movie_worldcup/',
     getWorldcupWinner: moviePk => HOST + MOVIES + `movie_worldcup/${moviePk}/win/`,
     likeMovie: moviePk => HOST + MOVIES + `${moviePk}/` + 'like/',
+    reviews: moviePk => HOST + MOVIES + `${moviePk}/` + REVIEWS,
+    review: (moviePk, reviewPk) => HOST + MOVIES + `${moviePk}/` + REVIEWS + `${reviewPk}/`
   }
 }

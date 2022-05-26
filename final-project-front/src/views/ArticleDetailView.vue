@@ -22,7 +22,7 @@
       <div class="d-flex">
 
         <p class="mt-2 ms-2">
-          작성일 : {{ article.created_at.substr(0,10) }} <article-list-created :article="article"></article-list-created></p>
+          작성일 : <article-list-created :article="article"></article-list-created></p>
       </div>
     </div>
     <hr class="mt-0">
