@@ -44,11 +44,11 @@ export default {
         return this.profile.articles.length
       },
     followersCount() {
-
+        console.log(this.profile.follower_count)
         return this.profile.follower_count
       },
     followingCount() {
-
+        console.log(this.profile.following_count)
         return this.profile.following_count
       },
   },

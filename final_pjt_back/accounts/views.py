@@ -9,17 +9,17 @@ User = get_user_model()
 
 @api_view(['GET'])
 def profile(request, username):
+    
     temp = User.objects.all()
-    idx = 0
-    for i in range(len(temp)):
-        if temp[i] == username:
-            idx = i
-            break
+    idx = -1
+    for i in temp:
+        print(i.id)
+        if i.username == username:
+            idx = i.id
     user = User.objects.annotate(
         follower_count = Count('followers'),
         following_count = Count('following')
-    ).all()[idx]
-
+    ).get(id = idx)
     serializer = ProfileSerializer(user)
     return Response(serializer.data)
     

@@ -1,7 +1,7 @@
 <template>
   <div>
     <VueSlickCarousel v-bind="settings" :arrows="true">
-      <top-ten-item v-for="movie in topTen" :movie="movie" :key="movie.pk"/>
+      <follow-like-item v-for="movie in followerLike" :movie="movie" :key="movie.pk"/>
     </VueSlickCarousel>
     
   </div>
@@ -9,16 +9,17 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import TopTenItem from './TopTenItem.vue'
+
 
 import VueSlickCarousel from 'vue-slick-carousel'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 // optional style for arrows & dots
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+import FollowLikeItem from './FollowLikeItem.vue'
 
 export default {
-  components: { TopTenItem,VueSlickCarousel },
-  name: 'TopTen',
+  components: { VueSlickCarousel,FollowLikeItem },
+  name: 'FollowLike',
   data(){
     return {
       settings: {
@@ -29,17 +30,19 @@ export default {
         "slidesToScroll": 3,
         "touchThreshold": 5,
         "variableWidth": true
-        }
+        },
+        userPk: this.$route.params.userPk
     }
   },
   methods:{
-    ...mapActions(['fetchTopTen'])
+    ...mapActions(['fetchFollowerLike'])
   },
   computed:{
-    ...mapGetters(['topTen'])
+    ...mapGetters(['followerLike','currentUser'])
   },
   created(){
-    this.fetchTopTen()
+    console.log(this.currentUser.pk)
+    this.fetchFollowerLike(this.currentUser.pk)
   }
 }
 </script>
