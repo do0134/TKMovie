@@ -9,9 +9,8 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Count,Avg
 from rest_framework import status
 import random
-from django.contrib.auth import get_user_model
 # Create your views here.
-User = get_user_model()
+
 TMDB_API_KEY = '38fb6be42c82ed986f17fb3d9195b8bc'
 
 def get_movie_datas():
@@ -51,8 +50,8 @@ def get_movie_datas():
 @api_view(['GET'])
 def movie_detail(request, movie_pk):
     movie = Movie.objects.annotate(
-        review_count = Count('review',distinct=True),
-        movie_rating = Avg('review__rating',distinct=True)
+        review_count = Count('review'),
+        movie_rating = Avg('review__rating')
     ).get(pk=movie_pk)
     def movie_detail():
         serializer = MovieSerializer(movie)
@@ -63,8 +62,8 @@ def movie_detail(request, movie_pk):
 @api_view(['POST'])
 def like_movie(request, movie_pk):
     movie = Movie.objects.annotate(
-        review_count = Count('review',distinct=True),
-        movie_rating = Avg('review__rating',distinct=True)
+        review_count = Count('review'),
+        movie_rating = Avg('review__rating')
     ).get(pk=movie_pk)
     user = request.user
     if movie.movie_like.filter(pk=user.pk).exists():
@@ -84,7 +83,7 @@ def create_review(request, movie_pk):
     serializer = ReviewSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(movie = movie, user=user)
-        reviews = movie.reviews.all()
+        reviews = movie.movie_review.all()
         serializer = ReviewSerializer(reviews, many=True)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -99,14 +98,14 @@ def review_update_or_delete(request, movie_pk, review_pk):
             serializer = ReviewSerializer(instance=review, data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
-                reviews = movie.reviews.all()
+                reviews = movie.movie_review.all()
                 serializer = ReviewSerializer(reviews, many=True)
                 return Response(serializer.data)
 
     def delete_review():
         if request.user == review.user:
             review.delete()
-            reviews = movie.reviews.all()
+            reviews = movie.movie_review.all()
             serializer = ReviewSerializer(reviews, many=True)
             return Response(serializer.data)
     

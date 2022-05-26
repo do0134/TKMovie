@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import Review
+from ..models import  Review
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -16,5 +16,5 @@ class ReviewSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     class Meta:
         model = Review
-        fields = ('pk', 'user', 'content', 'movie',)
+        fields = ('pk', 'user', 'content', 'movie','rating')
         read_only_fields = ('movie', )
