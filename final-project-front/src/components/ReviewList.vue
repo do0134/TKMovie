@@ -6,7 +6,8 @@
       <review-list-item
         v-for="review of reviews" 
         :review="review" 
-        :key="review.pk">
+        :key="review.pk"
+        class="my-4">
       </review-list-item>
     </ul>
     
