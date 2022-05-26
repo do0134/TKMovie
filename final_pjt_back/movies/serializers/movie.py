@@ -46,17 +46,36 @@ class WorldcupWinner(serializers.ModelSerializer):
         model = Movie
         fields = ('pk','user')
 
-# class MovieListSerializer(serializers.ModelSerializer):
-#     class UserSerializer(serializers.ModelSerializer):
-#         class Meta:
-#             model = User
-#             fields = ('pk', 'username')
+class MovieWinnerSerializer(serializers.ModelSerializer):
+    class UserSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = User
+            fields = ('pk', 'username')
+    
+    class GenreSerializer(serializers.ModelSerializer):
+        class Meta : 
+            model = Genre
+            fields = '__all__'
+    user = UserSerializer(read_only=True)
+    genres = GenreSerializer(read_only=True, many=True)
+    win_worldcup = UserSerializer(read_only=True,many=True)
+    class Meta:
+        model = Movie
+        fields = ('pk', 'user', 'title', 'overview','poster_path','released_date','genres','win_worldcup')
 
-#     user = UserSerializer(read_only=True)
-#     # queryset annotate (views에서 채워줄것!)
-#     comment_count = serializers.IntegerField()
-#     like_count = serializers.IntegerField()
-
-#     class Meta:
-#         model = Article
-#         fields = ('pk', 'user', 'title', 'comment_count', 'like_count','created_at')
+class MovieWinnerSerializer(serializers.ModelSerializer):
+    class UserSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = User
+            fields = ('pk', 'username')
+    
+    class GenreSerializer(serializers.ModelSerializer):
+        class Meta : 
+            model = Genre
+            fields = '__all__'
+    user = UserSerializer(read_only=True)
+    genres = GenreSerializer(read_only=True, many=True)
+    win_worldcup = UserSerializer(read_only=True,many=True)
+    class Meta:
+        model = Movie
+        fields = ('pk', 'user', 'title', 'overview','poster_path','released_date','genres','win_worldcup')
