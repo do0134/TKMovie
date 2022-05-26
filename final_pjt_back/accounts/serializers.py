@@ -25,6 +25,8 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     followers = FollowerSerializer(many = True)
     following = FollowerSerializer(many = True)
+    follower_count = serializers.IntegerField()
+    following_count = serializers.IntegerField()
     like_articles = ArticleSerializer(many=True)
     articles = ArticleSerializer(many=True)
 
