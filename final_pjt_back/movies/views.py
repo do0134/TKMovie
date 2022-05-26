@@ -62,10 +62,11 @@ def movie_detail(request, movie_pk):
 @api_view(['POST'])
 def like_movie(request, movie_pk):
     movie = Movie.objects.annotate(
-        review_count = Count('review'),
-        movie_rating = Avg('review__rating')
+        review_count = Count('movie_review'),
+        movie_rating = Avg('movie_review__rating')
     ).get(pk=movie_pk)
     user = request.user
+    print(movie)
     if movie.movie_like.filter(pk=user.pk).exists():
         movie.movie_like.remove(user)
         serializer = MovieSerializer(movie)

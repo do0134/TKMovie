@@ -38,8 +38,9 @@
     </VueSlickCarousel>
 
     <h2>{{ currentUser.username }}님 취향 저격 영화</h2>
-    <world-cup-base-list v-if="winner" :movie="winner"/>
-    <router-link v-else :to="{ name: 'movie_worldcup'}"> <button  class="btn btn-primary"> 이상형 월드컵을 해보세요 </button> </router-link>
+    
+    <router-link v-if="!winner" :to="{ name: 'movie_worldcup'}"> <button  class="btn btn-primary"> 이상형 월드컵을 해보세요 </button> </router-link>
+    <world-cup-base-list v-else :movie="winner"/>
   </div>
 </template>
 

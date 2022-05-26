@@ -29,10 +29,13 @@ export default {
   },
   movies: {
     movie: moviePk => HOST + MOVIES + `${moviePk}/`,
+    
     movieWorldcup: () => HOST + MOVIES + 'movie_worldcup/',
     getWorldcupWinner: moviePk => HOST + MOVIES + `movie_worldcup/${moviePk}/win/`,
+    
     likeMovie: moviePk => HOST + MOVIES + `${moviePk}/` + 'like/',
     setWinner: username=> HOST + MOVIES + `movie_worldcup/${username}/recommend/`,
+    
     reviews: moviePk => HOST + MOVIES + `${moviePk}/` + REVIEWS,
     review: (moviePk, reviewPk) => HOST + MOVIES + `${moviePk}/` + REVIEWS + `${reviewPk}/`
   }

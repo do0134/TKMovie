@@ -5,8 +5,11 @@
       <h2 class="d-flex">{{ movie.title }}</h2>
       <p class="d-flex mx-3">{{ movie.released_date }}</p>
       <b-button @click="[likeMovie(moviePk)]" variant="link" id="link">
-        
-        <b-icon icon="heart" aria-hidden="true" variant="danger"></b-icon>
+          <b-icon v-if="changeLike===false" icon="heart" aria-hidden="true" variant="danger"></b-icon>
+          <b-icon v-else icon="heart-fill" aria-hidden="true" variant="danger"></b-icon>
+          <br>
+          <p></p>
+          <p>{{ likeCount }}명이 이 영화를 좋아합니다</p>
       </b-button>
       <hr>
       <p>{{ movie.vote_avg }}</p>
@@ -19,7 +22,7 @@
         <i class="fa-solid fa-house"></i>
       </b-button>
     </div>
-    <review-list></review-list>
+    <review-list :reviews="movie.movie_review" :movie="movie"></review-list>
   </div>
 </template>
 <script>
@@ -36,16 +39,30 @@ export default {
       }
     },
   computed : {
-    ...mapGetters(['movie']),
+    ...mapGetters(['movie','currentUser']),
     changeLike(){
       return this.checkLike()
+    },
+    likeCount(){
+      return this.movie.movie_like.length
     }
   },
   methods : {
     ...mapActions(['fetchMovie', 'likeMovie']),
+    checkLike(){
+        for (let i of this.movie.movie_like){
+          console.log(this.currentUser)
+          if (i === this.currentUser.pk){
+            return true
+          } 
+        } return false
+        },
   },
   created() {
-    this.fetchMovie(this.moviePk)
+    this.fetchMovie(this.moviePk),
+    console.log(this.movie.movie_like),
+    this.checkLike()
+
   }
 }
 </script>
