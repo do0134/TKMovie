@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="d-flex my-5">My Page</h1>
+    <h1 class="d-flex my-5 communitytitle">Profile</h1>
     <my-profile/>
       <div class="d-flex justify-content-center">
         <b-card border-variant="dark" header="작성한 글" align="center" id="mycard">
