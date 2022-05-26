@@ -21,7 +21,7 @@ export default {
   mutations: {
     SET_MOVIE_WORLDCUP: (state, movieWorldcup) => state.movieWorldcup = movieWorldcup,
     SET_MOVIE: (state, movie) => state.movie = movie,
-    SET_MOVIE_REVIEWS: (state, reviews) => (state.movie.reviews = reviews),
+    SET_MOVIE_REVIEWS: (state, reviews) => (state.movie.movie_review = reviews),
     SET_WINNER: (state,winner) => state.winner = winner,
     SET_WORLDCUPBASE: (state, worldcupBase) => state.worldcupBase = worldcupBase
   },
@@ -86,12 +86,14 @@ export default {
         headers: getters.authHeader
       })
         .then(res => {
+          console.log(res.data)
           commit('SET_MOVIE_REVIEWS', res.data)
         })
         .catch(err => console.error(err.response))
     },
-    updateReview({ commit, getters }, { moviePk, reviewPk, content }) {
-      const review = { content }
+    updateReview({ commit, getters }, { moviePk, reviewPk, content, rating }) {
+      const review = { content, rating }
+      console.log(moviePk)
       axios({
         url: drf.movies.review(moviePk, reviewPk),
         method: 'put',
@@ -99,6 +101,7 @@ export default {
         headers: getters.authHeader,
       })
         .then(res => {
+          console.log(1234567)
           commit('SET_MOVIE_REVIEWS', res.data)
         })
         .catch(err => console.error(err.response))

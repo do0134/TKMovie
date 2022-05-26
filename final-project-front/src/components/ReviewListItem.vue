@@ -1,7 +1,22 @@
 <template>
   <div>
-    
-    {{ review.content }}
+
+   <span v-if="!checkEdit" class="ms-5">
+      <b-icon icon="chat-square-quote-fill" variant="warning" class="me-1"></b-icon>{{ payload.content }}</span>
+    <span v-if="checkEdit">
+      <input type="text" v-model="payload.content">
+      <input type="number" name="points" min="0" max="5" step="1" v-model="payload.rating">
+      <button @click="onUpdate" class="btn-sm btn btn-link" id="link">
+        <b-icon icon="check-lg" variant="dark" class="me-1"></b-icon></button> |
+      <button @click="switchIsEditing" class="btn-sm btn btn-link" id="link">
+        <b-icon icon="x-lg" variant="dark" class="me-1"></b-icon></button>
+    </span>
+    <span v-if="currentUser.pk === review.user && !checkEdit">
+      <button @click="switchIsEditing" class="btn-sm btn btn-link" id="link">
+        <b-icon icon="pencil-square" aria-hidden="true" variant="dark"></b-icon></button> |
+      <button @click="deleteReview(payload)" class="btn-sm btn btn-link" id="link">
+        <b-icon icon="trash" aria-hidden="true" variant="dark"></b-icon></button>
+    </span>
     <div class="star-ratings">
       <div 
         class="star-ratings-fill space-x-2 text-lg"
@@ -25,10 +40,12 @@ export default {
   data() {
     return {
       isEditing: false,
+  
       payload: {
         moviePk: this.review.movie,
         reviewPk: this.review.pk,
-        review: this.review.content
+        content: this.review.content,
+        rating: this.review.rating,
       },
     }
   },
@@ -36,7 +53,10 @@ export default {
     ...mapGetters(['currentUser']),
     ratingToPercent() {
       const score = +this.review.rating * 20;
-      return score + 1.5;}
+      return score + 1.5;},
+    checkEdit(){
+      return this.isEditing
+    }
   },
   
   methods: {
@@ -47,8 +67,14 @@ export default {
     onUpdate() {
       this.updateReview(this.payload)
       this.isEditing = false
-    }
+    },
+
   },
+  created(){
+    console.log(this.review)
+    console.log(this.review.user)
+
+  }
 
 }
 </script>
