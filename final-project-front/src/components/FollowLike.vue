@@ -41,7 +41,7 @@ export default {
     ...mapGetters(['followerLike','currentUser'])
   },
   created(){
-    console.log(this.fetchFollowerLike)
+    console.log(this.followerLike)
     this.fetchFollowerLike(this.currentUser.pk)
   }
 }

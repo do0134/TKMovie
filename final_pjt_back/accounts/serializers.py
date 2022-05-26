@@ -5,17 +5,6 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-class EachUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('pk','username',)
-
-class FollowerSerializer(serializers.ModelSerializer):
-    followers = EachUserSerializer(many=True, read_only= True)
-    following = EachUserSerializer(many=True,read_only=True)
-    class Meta:
-        model = User
-        fields = ('followers','following')
 
 class ProfileSerializer(serializers.ModelSerializer):
     class ArticleSerializer(serializers.ModelSerializer):
@@ -23,8 +12,6 @@ class ProfileSerializer(serializers.ModelSerializer):
             model = Article
             fields = ('pk', 'title', 'content')
 
-    followers = FollowerSerializer(many = True)
-    following = FollowerSerializer(many = True)
     follower_count = serializers.IntegerField()
     following_count = serializers.IntegerField()
     like_articles = ArticleSerializer(many=True)

@@ -13,7 +13,7 @@ def profile(request, username):
     temp = User.objects.all()
     idx = -1
     for i in temp:
-        print(i.id)
+
         if i.username == username:
             idx = i.id
     user = User.objects.annotate(
@@ -36,16 +36,17 @@ def follow(request, username):
         follower_count = Count('followers'),
         following_count = Count('following')
     ).all()[idx]
-    print(person.username)
+    print(person.followers)
+    print(request.user.pk)
     if person.followers.filter(pk=request.user.pk).exists():
-        person.followed = False
-        person.followers.remove(request.user.pk)
+        print(234)
+        person.followers.remove(request.user)
         serializer = ProfileSerializer(person)
-
         return Response(serializer.data)
     else:
-        person.followed = True
-        person.followers.add(request.user.pk) 
+        print(123)
+        
+        person.followers.add(request.user) 
         serializer = ProfileSerializer(person)
 
         return Response(serializer.data)      

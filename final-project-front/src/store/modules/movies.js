@@ -84,7 +84,7 @@ export default {
     },
 
     fetchFollowerLike({ commit, getters }, userPk) {
-      console.log(123)
+
       axios({
         url: drf.movies.followerLike(userPk),
         method: 'get',
@@ -92,7 +92,7 @@ export default {
       })
         .then(res => {
           console.log(res.data)
-          commit('SET_FOLLWERLIKE', res.data)
+          commit('SET_FOLLOWERLIKE', res.data)
         })
         .catch(err => console.error(err.response))
     },
