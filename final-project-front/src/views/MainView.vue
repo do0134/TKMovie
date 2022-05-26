@@ -64,7 +64,7 @@
     <hr>
     <h2 v-if="currentUser.pk>0" class="mt-5 mb-3"><b-icon icon="stars" animation="fade" font-scale="1" class="me-2"></b-icon>{{ currentUser.username }}님 취향 저격 영화</h2>
     <div class="popular">
-      <router-link v-if="currentUser.pk>0 && !winner" :to="{ name: 'movie_worldcup'}"> <button  class="btn btn-primary"> 이상형 월드컵을 해보세요 </button> </router-link>
+      <router-link v-if="currentUser.pk<0 && !winner" :to="{ name: 'movie_worldcup'}"> <button  class="btn btn-primary"> 이상형 월드컵을 해보세요 </button> </router-link>
     
       <world-cup-base-list v-else :movie="winner"/>
     </div>
