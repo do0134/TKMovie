@@ -3,7 +3,7 @@
     <h1 class="d-flex my-5">
       <b-button variant="link" :to="{ name: 'article', params: { params: { articlePk } } }" class="mx-3">
         <b-icon icon="arrow-left" aria-hidden="true" variant="dark" class="mt-1"></b-icon>
-      </b-button>Edit Article</h1>
+      </b-button><h1 class="communitytitle">Edit Article</h1></h1> 
     <article-form v-if="isArticle" :article="article" action="update">
 
     </article-form>

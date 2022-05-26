@@ -21,6 +21,11 @@ export default {
       imgUrl:`https://image.tmdb.org/t/p/w500${this.movie.poster_path}`,
       }
   },
+  methods: {
+    goMovie(movieId) {
+      this.$router.push({ name: 'moviedetail', params: { moviePk: movieId } })
+    }
+  }
 }
 </script>
 

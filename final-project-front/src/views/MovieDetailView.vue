@@ -16,7 +16,7 @@
         </div>
       </div>
       <hr class="my-0">
-      <p class="d-flex ms-2 mt-3">평점 {{ movie.vote_avg }}</p>
+      <p class="d-flex ms-2 mt-3 vote">평점 {{ movie.vote_avg }}</p>
       <p>장르:
         <span v-for="genre in movie.genres" :key="genre.id">{{genre.name}} |</span>
       </p>
@@ -70,5 +70,7 @@ export default {
 </script>
 
 <style>
-
+.vote {
+  border: 1px solid green;
+}
 </style>

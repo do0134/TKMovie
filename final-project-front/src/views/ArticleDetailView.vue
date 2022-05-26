@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="d-flex mt-5 mb-4">Community</h1>
+    <h1 class="d-flex mt-5 mb-4 communitytitle">Community</h1>
     <div class="d-flex justify-content-between">
       <b-button class="mt-2" variant="link" :to="{ name: 'articles' }" id="link">
         <b-icon icon="list" aria-hidden="true" variant="dark" class="me-1"></b-icon>목록으로
