@@ -10,7 +10,6 @@
       </b-button>
       <hr>
       <p>{{ movie.vote_avg }}</p>
-      <p>{{ movie.genres }}</p>
       <p>장르
         <span v-for="genre in movie.genres" :key="genre.id">{{genre.name}}</span>
       </p>
@@ -20,12 +19,16 @@
         <i class="fa-solid fa-house"></i>
       </b-button>
     </div>
+    <review-list></review-list>
   </div>
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import ReviewList from '@/components/ReviewList.vue'
+
 export default {
   name: "MovieDetailView",
+  components: { ReviewList },
   data() {
       return {
         moviePk: this.$route.params.moviePk,

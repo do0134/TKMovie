@@ -153,5 +153,4 @@ def winner_base_recommend(request,username):
         serializer = MovieWinnerSerializer(recommendation)
         return Response(serializer.data)
     else: 
-
         return Response({})

@@ -27,7 +27,7 @@
               <p @click="goProfile(article)" id="a" class="mb-0" style="cursor:pointer">{{ article.user.username }}</p>
             </td>
             <td id="tableTime">
-              {{ article.created_at.substr(0,10) }} <article-list-created :article="article"></article-list-created>
+              <article-list-created :article="article"></article-list-created>
             </td>
             <td id="tableSub">
               <span>{{ article.like_count }}</span>

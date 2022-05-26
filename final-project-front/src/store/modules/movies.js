@@ -9,8 +9,6 @@ export default {
   state: {
     movieWorldcup: [],
     movie: {},
-    winner:{},
-    worldcupBase: [],
   },
 
   getters: {
@@ -79,7 +77,48 @@ export default {
       })
       .catch(err => console.error(err.response))
     },
+    createReview({ commit, getters }, { moviePk, content, rating }) {
+      const review = { content, rating }
+      axios({
+        url: drf.movies.reviews(moviePk),
+        method: 'post',
+        data: review,
+        headers: getters.authHeader
+      })
+        .then(res => {
+          commit('SET_MOVIE_REVIEWS', res.data)
+        })
+        .catch(err => console.error(err.response))
+    },
+    updateReview({ commit, getters }, { moviePk, reviewPk, content }) {
+      const review = { content }
+      axios({
+        url: drf.movies.review(moviePk, reviewPk),
+        method: 'put',
+        data: review,
+        headers: getters.authHeader,
+      })
+        .then(res => {
+          commit('SET_MOVIE_REVIEWS', res.data)
+        })
+        .catch(err => console.error(err.response))
+    },
 
+    deleteReview({ commit, getters }, { moviePk, reviewPk }) {
+
+        if (confirm('정말 삭제하시겠습니까?')) {
+          axios({
+            url: drf.movies.review(moviePk, reviewPk),
+            method: 'delete',
+            data: {},
+            headers: getters.authHeader,
+          })
+            .then(res => {
+              commit('SET_MOVIE_REVIEWS', res.data)
+            })
+            .catch(err => console.error(err.response))
+        }
+    },
     worldcupWin({ commit,getters }, moviePk) {
 
       axios({
