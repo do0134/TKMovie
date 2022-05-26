@@ -44,10 +44,12 @@ export default {
         return this.profile.articles.length
       },
     followersCount() {
-        return this.profile.followers.length
+
+        return this.profile.follower_count
       },
     followingCount() {
-        return this.profile.following.length
+
+        return this.profile.following_count
       },
   },
   methods: {
@@ -56,6 +58,7 @@ export default {
   created() {
     const payload = { username: this.$route.params.username }
     this.fetchProfile(payload)
+    console.log(this.profile)
   },
   // goProfile() {
   //   this.$router.push({ name: 'profile', params: { username: this.article.user.username } })

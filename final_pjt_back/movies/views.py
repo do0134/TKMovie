@@ -9,8 +9,9 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Count,Avg
 from rest_framework import status
 import random
+from django.contrib.auth import get_user_model
 # Create your views here.
-
+User = get_user_model()
 TMDB_API_KEY = '38fb6be42c82ed986f17fb3d9195b8bc'
 
 def get_movie_datas():
@@ -155,3 +156,31 @@ def winner_base_recommend(request,username):
         return Response(serializer.data)
     else: 
         return Response({'false': True})
+
+@api_view(['GET'])
+def top_ten(request):
+    user = User.objects.all()
+    temp_list = []
+    movie_list = []
+    for i in range(len(user)):
+        if user[i].best_movies == 'movies.Movie.None':
+            pass
+        else:
+            for j in user[i].best_movies:
+                temp_list.append(j)
+    
+    if len(temp_list) < 20:
+        movie_list = temp_list
+        
+    else:
+        for i in range(len(temp_list)):
+            for j in range(len(temp_list)-1):
+                if temp_list.count(temp_list[j]) < temp_list.count(temp_list[j+1]):
+                    temp_list[j],temp_list[j+1] = temp_list[j+1],temp_list[j]
+
+        for i in range(20):
+            movie_list.append(temp_list[i])
+    
+
+    serializer = MovieWinnerSerializer(movie_list,many=True)
+    return Response(serializer.data)

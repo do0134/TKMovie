@@ -38,7 +38,11 @@
 
   </div>
     <br>
-    
+    <h2>World Cup Top Ten</h2>
+    <div class="popular">
+      <top-ten></top-ten>
+    </div>
+    <br>
     <h2>PopularMovie</h2>
     <div class = "popular">
       <VueSlickCarousel v-bind="settings" :arrows="true" @init="onInitCarousel">
@@ -53,6 +57,7 @@
         <now-playing-movie-card v-for="movie in nowPlaying" :key="movie.id" :movie="movie"/>    
       </VueSlickCarousel>
     </div>
+    <br>
     <h2 v-if="currentUser.pk>0">{{ currentUser.username }}님 취향 저격 영화</h2>
     <div class="popular">
       <router-link v-if="currentUser.pk>0 && !winner" :to="{ name: 'movie_worldcup'}"> <button  class="btn btn-primary"> 이상형 월드컵을 해보세요 </button> </router-link>
@@ -72,6 +77,7 @@ import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 
 import WorldCupBaseList from '../components/WorldCupBaseList.vue'
+import TopTen from '../components/TopTen.vue';
 
 export default {
   name : 'MainView',
@@ -79,7 +85,8 @@ export default {
     PopularMovieCard,
     NowPlayingMovieCard,
     VueSlickCarousel,
-    WorldCupBaseList
+    WorldCupBaseList,
+    TopTen
   },
   data() {
     return {
@@ -94,7 +101,6 @@ export default {
         },
         slide: 0,
         sliding: null,
-        fPk: 526896,
 
       // carouselMovie: [],
       // imgUrl: []
