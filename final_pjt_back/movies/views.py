@@ -201,4 +201,12 @@ def follower_like(request,user_pk):
         serializer = MovieWorldCupSerializer(r_list,many=True)
     return Response(serializer.data)
 
-     
+@api_view(['GET'])
+def get_my_winner(request,username):
+    user = request.user
+    movie_list = user.best_movies.all()
+    if movie_list:
+        serializer = MovieWinnerSerializer(movie_list,many=True)
+        return Response(serializer.data)
+    else: 
+        return Response({'false': True})
