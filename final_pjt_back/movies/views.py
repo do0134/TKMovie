@@ -159,28 +159,46 @@ def winner_base_recommend(request,username):
 
 @api_view(['GET'])
 def top_ten(request):
-    user = User.objects.all()
-    temp_list = []
-    movie_list = []
-    for i in range(len(user)):
-        if user[i].best_movies == 'movies.Movie.None':
-            pass
-        else:
-            for j in user[i].best_movies:
-                temp_list.append(j)
-    
-    if len(temp_list) < 20:
-        movie_list = temp_list
-        
+    movies = Movie.objects.annotate(
+        win_cnt = Count('win_worldcup')
+    ).order_by('win_cnt')
+    if len(movies) <20 : 
+        pass
     else:
-        for i in range(len(temp_list)):
-            for j in range(len(temp_list)-1):
-                if temp_list.count(temp_list[j]) < temp_list.count(temp_list[j+1]):
-                    temp_list[j],temp_list[j+1] = temp_list[j+1],temp_list[j]
-
-        for i in range(20):
-            movie_list.append(temp_list[i])
+        movies = movies[0:20]
     
 
-    serializer = MovieWinnerSerializer(movie_list,many=True)
+    serializer = MovieWinnerSerializer(movies,many=True)
     return Response(serializer.data)
+
+@api_view(['GET'])
+def follower_like(request,user_pk):
+    user = user = User.objects.annotate(
+        follower_count = Count('followers'),
+        following_count = Count('following')
+    ).get(id = user_pk)
+    follow_list = user.following.all()
+    movie_list = []
+
+    if len(follow_list) <=0 :
+        target = User.objects.get(id=1)
+    else:
+        
+        target = random.choice(follow_list)
+    
+    movie_list = target.best_movies.all()
+    r_list = []
+
+    if movie_list:
+        for i in range(len(movie_list)):
+            r_list.append(movie_list[i])
+        serializer = MovieWorldCupSerializer(r_list,many=True)
+    else: 
+        target = User.objects.get(pk=1)
+        movie_list = target.best_movies.all()
+        for i in range(len(movie_list)):
+            r_list.append(movie_list[i])
+        serializer = MovieWorldCupSerializer(r_list,many=True)
+    return Response(serializer.data)
+
+     

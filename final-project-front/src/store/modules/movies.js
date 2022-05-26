@@ -11,13 +11,15 @@ export default {
     movie: {},
     winner:{},
     topTen:[],
+    followerLike: [],
   },
 
   getters: {
     movieWorldcup: state => state.movieWorldcup,
     movie: state => state.movie,
     winner: state => state.winner, 
-    topTen: state => state.topTen
+    topTen: state => state.topTen,
+    followerLike: state => state.followerLike
   },
 
   mutations: {
@@ -26,7 +28,8 @@ export default {
     SET_MOVIE_REVIEWS: (state, reviews) => (state.movie.movie_review = reviews),
     SET_WINNER: (state,winner) => state.winner = winner,
     SET_WORLDCUPBASE: (state, worldcupBase) => state.worldcupBase = worldcupBase,
-    SET_TOPTEN: (state, topTen) => state.topTen = topTen
+    SET_TOPTEN: (state, topTen) => state.topTen = topTen,
+    SET_FOLLOWERLIKE: (state,followerLike) => state.followerLike = followerLike
   },
   actions: {
     fetchMovieWorldCup({ commit, getters }) {
@@ -76,6 +79,20 @@ export default {
       })
         .then(res => {
           commit('SET_TOPTEN', res.data)
+        })
+        .catch(err => console.error(err.response))
+    },
+
+    fetchFollowerLike({ commit, getters }, userPk) {
+      console.log(123)
+      axios({
+        url: drf.movies.followerLike(userPk),
+        method: 'get',
+        headers: getters.authHeader,
+      })
+        .then(res => {
+          console.log(res.data)
+          commit('SET_FOLLWERLIKE', res.data)
         })
         .catch(err => console.error(err.response))
     },

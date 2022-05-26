@@ -36,6 +36,7 @@ export default {
     likeMovie: moviePk => HOST + MOVIES + `${moviePk}/` + 'like/',
     setWinner: username=> HOST + MOVIES + `movie_worldcup/${username}/recommend/`,
     topTen:()=> HOST+ MOVIES+ 'movie_worldcup/topten/',
+    followerLike:userPk=> HOST + MOVIES+ `movie_worldcup/follower_like/${userPk}`,
     
     reviews: moviePk => HOST + MOVIES + `${moviePk}/` + REVIEWS,
     review: (moviePk, reviewPk) => HOST + MOVIES + `${moviePk}/` + REVIEWS + `${reviewPk}/`

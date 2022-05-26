@@ -38,6 +38,7 @@
 
   </div>
     <br>
+    <br>
     <h2>World Cup Top Ten</h2>
     <div class="popular">
       <top-ten></top-ten>
@@ -64,6 +65,10 @@
     
       <world-cup-base-list v-else :movie="winner"/>
     </div>
+    <h2 v-if="currentUser.pk>0">{{ currentUser.username }}님이 팔로잉하는 유저가 좋아하는 영화</h2>
+    <div class="popular" v-if="currentUser.pk>0">
+      <follow-like></follow-like>
+    </div>
   </div>
 </template>
 
@@ -78,6 +83,7 @@ import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 
 import WorldCupBaseList from '../components/WorldCupBaseList.vue'
 import TopTen from '../components/TopTen.vue';
+import FollowLike from '../components/FollowLike.vue';
 
 export default {
   name : 'MainView',
@@ -86,7 +92,8 @@ export default {
     NowPlayingMovieCard,
     VueSlickCarousel,
     WorldCupBaseList,
-    TopTen
+    TopTen,
+    FollowLike,
   },
   data() {
     return {

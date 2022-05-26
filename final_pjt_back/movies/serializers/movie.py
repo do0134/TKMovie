@@ -70,3 +70,14 @@ class MovieWinnerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = ('pk', 'user', 'title', 'overview','poster_path','released_date','genres','win_worldcup')
+
+class TopTen(serializers.ModelSerializer):
+    class UserSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = User
+            fields = ('pk', 'username')
+    win_worldcup = UserSerializer(read_only=True,many=True)
+    win_cnt = serializers.IntegerField()
+    class Meta:
+        model = Movie
+        fields = ('pk','title','overview','poster_path','win_worldcup','win_cnt')
