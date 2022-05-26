@@ -10,12 +10,14 @@ export default {
     movieWorldcup: [],
     movie: {},
     winner:{},
+    topTen:[],
   },
 
   getters: {
     movieWorldcup: state => state.movieWorldcup,
     movie: state => state.movie,
     winner: state => state.winner, 
+    topTen: state => state.topTen
   },
 
   mutations: {
@@ -23,7 +25,8 @@ export default {
     SET_MOVIE: (state, movie) => state.movie = movie,
     SET_MOVIE_REVIEWS: (state, reviews) => (state.movie.movie_review = reviews),
     SET_WINNER: (state,winner) => state.winner = winner,
-    SET_WORLDCUPBASE: (state, worldcupBase) => state.worldcupBase = worldcupBase
+    SET_WORLDCUPBASE: (state, worldcupBase) => state.worldcupBase = worldcupBase,
+    SET_TOPTEN: (state, topTen) => state.topTen = topTen
   },
   actions: {
     fetchMovieWorldCup({ commit, getters }) {
@@ -65,6 +68,17 @@ export default {
       
     },
 
+    fetchTopTen({ commit, getters }) {
+      axios({
+        url: drf.movies.topTen(),
+        method: 'get',
+        headers: getters.authHeader,
+      })
+        .then(res => {
+          commit('SET_TOPTEN', res.data)
+        })
+        .catch(err => console.error(err.response))
+    },
 
     likeMovie({ commit, getters }, moviePk) {
       axios({

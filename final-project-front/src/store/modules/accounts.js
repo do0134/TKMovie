@@ -119,13 +119,14 @@ export default {
           console.error(err.response)
         })
     },
-    following({ getters }, username) {
+    following({ commit,getters }, username) {
       axios({
         url: drf.accounts.following(username),
         method: 'post',
         headers: getters.authHeader,
       })
-        .then(() => {})
+        .then(res => {
+            commit('SET_PROFILE', res.data)})
         .catch(err => console.error(err.response))
     },
 
