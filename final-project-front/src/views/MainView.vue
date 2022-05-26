@@ -38,8 +38,8 @@
     </VueSlickCarousel>
 
     <h2>{{ currentUser.username }}님 취향 저격 영화</h2>
-    <world-cup-base-list v-if="!winner.length===0" :movie="winner"/>
-    <router-link v-else :to="{ name: 'movieworldcup'}"> <button  class="btn btn-primary"> 이상형 월드컵을 해보세요 </button> </router-link>
+    <world-cup-base-list v-if="winner" :movie="winner"/>
+    <router-link v-else :to="{ name: 'movie_worldcup'}"> <button  class="btn btn-primary"> 이상형 월드컵을 해보세요 </button> </router-link>
   </div>
 </template>
 
@@ -101,7 +101,8 @@ export default {
   created(){
     this.getPopularMovie(),
     this.getNowPlayingMovie(),
-    this.fetchWinner(this.currentUser.username)
+    this.fetchWinner(this.currentUser.username),
+    console.log(this.winner)
 
 
     // console.log(this.carouselMovie)
