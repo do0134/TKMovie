@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from ..models import Genre, Movie
-from .review import ReviewSerializer
+from ..models import Genre, Movie, Review
+from.review import ReviewSerializer
 from django.contrib.auth import get_user_model
 
 
@@ -15,8 +15,11 @@ class MovieSerializer(serializers.ModelSerializer):
         class Meta : 
             model = Genre
             fields = '__all__'
-    
-    reviews = ReviewSerializer(many=True, read_only=True)
+    class MovieReviewSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Review
+            fields = "__all__"
+    movie_review = MovieReviewSerializer(many=True, read_only=True)
 
     movie_like_users = UserSerializer(read_only=True, many=True)
     review_count = serializers.IntegerField()
@@ -30,10 +33,14 @@ class MovieWorldCupSerializer(serializers.ModelSerializer):
         class Meta:
             model = User
             fields = ('pk','username')
+    class GenreSerializer(serializers.ModelSerializer):
+        class Meta : 
+            model = Genre
+            fields = '__all__'
     user = UserSerializer(read_only=True)
     class Meta : 
         model = Movie
-        fields = ('pk','title','poster_path','user')
+        fields = '__all__'
 
 
 class WorldcupWinner(serializers.ModelSerializer):

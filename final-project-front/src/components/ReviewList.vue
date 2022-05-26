@@ -1,13 +1,15 @@
 <template>
   <div>
+    <review-form :movie="movie"></review-form>
+    
     <ul>
       <review-list-item
-        v-for="review in reviews" 
+        v-for="review of reviews" 
         :review="review" 
         :key="review.pk">
       </review-list-item>
     </ul>
-    <review-form></review-form>
+    
   </div>
 </template>
 
@@ -18,7 +20,12 @@ import ReviewForm from '@/components/ReviewForm.vue'
 export default {
   name: 'ReviewList',
   components: { ReviewListItem, ReviewForm },
-  props: { reviews: Array }
+  props: { reviews: Array,
+  movie: Object },
+  
+  created() {
+
+  }
 }
 </script>
 
