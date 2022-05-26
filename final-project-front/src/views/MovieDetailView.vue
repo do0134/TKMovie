@@ -10,6 +10,7 @@
       </b-button>
       <hr>
       <p>{{ movie.vote_avg }}</p>
+      <p>{{ movie.genres }}</p>
       <p>장르
         <span v-for="genre in movie.genres" :key="genre.id">{{genre.name}}</span>
       </p>
