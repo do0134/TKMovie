@@ -35,37 +35,42 @@
       <!-- Slide with blank fluid image to maintain slide aspect ratio -->
 
     </b-carousel>
+    </div>
 
-  </div>
     <br>
     <br>
-    <h2>World Cup Top Ten</h2>
+    <hr>
+    <h2 class="mt-5 mb-3"><b-icon icon="stars" animation="fade" font-scale="1" class="me-2"></b-icon>World Cup <i class="fa-solid fa-trophy ms-3"></i> Top 10</h2>
     <div class="popular">
       <top-ten></top-ten>
     </div>
     <br>
-    <h2>PopularMovie</h2>
+    <hr>
+    <h2 class="mt-5 mb-3"><b-icon icon="stars" animation="fade" font-scale="1" class="me-2"></b-icon>Popular Movie</h2>
     <div class = "popular">
       <VueSlickCarousel v-bind="settings" :arrows="true" @init="onInitCarousel">
         <popular-movie-card v-for="movie in popularMovie" :key="movie.id" :movie="movie" />
       </VueSlickCarousel>
     </div>
     <br>
-    
-    <h2>Now Playing Movie</h2>
+    <hr>
+    <h2 class="mt-5 mb-3"><b-icon icon="stars" animation="fade" font-scale="1" class="me-2"></b-icon>Now Playing Movie</h2>
     <div class="popular">
       <VueSlickCarousel  v-bind="settings" :arrows="true" >      
         <now-playing-movie-card v-for="movie in nowPlaying" :key="movie.id" :movie="movie"/>    
       </VueSlickCarousel>
     </div>
     <br>
-    <h2 v-if="currentUser.pk>0">{{ currentUser.username }}님 취향 저격 영화</h2>
+    <hr>
+    <h2 v-if="currentUser.pk>0" class="mt-5 mb-3"><b-icon icon="stars" animation="fade" font-scale="1" class="me-2"></b-icon>{{ currentUser.username }}님 취향 저격 영화</h2>
     <div class="popular">
       <router-link v-if="currentUser.pk>0 && !winner" :to="{ name: 'movie_worldcup'}"> <button  class="btn btn-primary"> 이상형 월드컵을 해보세요 </button> </router-link>
     
       <world-cup-base-list v-else :movie="winner"/>
     </div>
-    <h2 v-if="currentUser.pk>0">{{ currentUser.username }}님이 팔로잉하는 유저가 좋아하는 영화</h2>
+    <br>
+    <hr>
+    <h2 v-if="currentUser.pk>0" class="mt-5 mb-2"><b-icon icon="stars" animation="fade" font-scale="1" class="me-2"></b-icon>{{ currentUser.username }}님이 팔로잉하는 유저가 좋아하는 영화</h2>
     <div class="popular" v-if="currentUser.pk>0">
       <follow-like></follow-like>
     </div>
